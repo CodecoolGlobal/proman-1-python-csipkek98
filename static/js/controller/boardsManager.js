@@ -17,9 +17,19 @@ export let boardsManager = {
       );
     }
   },
+  loadColumns : async function () {
+    const statuses = await dataHandler.getStatuses();      // only uses default values
+    for (let status of statuses) {
+      const columnBuilder = htmlFactory(htmlTemplates.column);
+      const content = columnBuilder(status);
+      domManager.addChild(".board-columns", content);
+      // column event listeners here if needed
+    };
+  }
 };
 
 function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
+  boardsManager.loadColumns();
   cardsManager.loadCards(boardId);
 }
