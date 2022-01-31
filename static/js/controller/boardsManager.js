@@ -17,12 +17,12 @@ export let boardsManager = {
       );
     }
   },
-  loadColumns : async function () {
+  loadColumns : async function (boardId) {
     const statuses = await dataHandler.getStatuses();      // only uses default values
     for (let status of statuses) {
       const columnBuilder = htmlFactory(htmlTemplates.column);
       const content = columnBuilder(status);
-      domManager.addChild(".board-columns", content);
+      domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       // column event listeners here if needed
     };
   }
@@ -30,6 +30,6 @@ export let boardsManager = {
 
 function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
-  boardsManager.loadColumns();
+  boardsManager.loadColumns(boardId);
   cardsManager.loadCards(boardId);
 }

@@ -16,6 +16,7 @@ export let dataHandler = {
   },
   getCardsByBoardId: async function (boardId) {
     const response = await apiGet(`/api/boards/${boardId}/cards/`);
+    console.log(response)
     return response;
   },
   getCard: async function (cardId) {

@@ -31,8 +31,8 @@ function boardBuilder(board) {
 
 function columnBuilder(status) {
     return `<div class="board-column">
-                <div class="board-column-title" data-status-id="${status.id}">${status.title}</div>
-                <div class="board-column-content"></div>
+                <div class="board-column-title">${status.title}</div>
+                <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
 }
 
