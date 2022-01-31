@@ -22,7 +22,13 @@ function boardBuilder(board) {
             </div>`;
 }
 
+function statusBuilder(status) {
+    return `<div class="card" data-card-id="${status.id}">${status.title}</div>`;
+}
+
 function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
 }
+
+
 
