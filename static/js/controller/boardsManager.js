@@ -30,6 +30,18 @@ export let boardsManager = {
 
 function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
-  boardsManager.loadColumns(boardId);
-  cardsManager.loadCards(boardId);
+  const openBoard = document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
+  if (openBoard.hasChildNodes())
+  {
+    while (openBoard.hasChildNodes())
+    {
+      openBoard.removeChild(openBoard.lastChild);
+    }
+  }
+  else
+  {
+    boardsManager.loadColumns(boardId);
+    cardsManager.loadCards(boardId);
+  }
+
 }
