@@ -47,3 +47,12 @@ def get_cards_for_board(board_id):
         , {"board_id": board_id})
 
     return matching_cards
+
+
+def get_statuses():
+    default_statuses = data_manager.execute_select(
+        """
+        SELECT * FROM statuses
+        WHERE id < 5"""
+    )
+    return default_statuses
