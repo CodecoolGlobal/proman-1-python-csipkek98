@@ -20,10 +20,10 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/api/statuses")
+@app.route("/api/statuses/<board_id>")
 @json_response
-def get_statuses():
-    return queires.get_statuses()
+def get_statuses(board_id):
+    return queires.get_statuses(board_id)
 
 
 @app.route("/api/boards")
@@ -59,6 +59,14 @@ def get_cards_for_board(board_id: int):
 def delete_card_from_board(card_id):
     if request.method == "DELETE":
         queires.delete_card(card_id)
+
+
+@app.route("/api/<status_id>/delete_status/", methods=['DELETE'])
+@json_response
+def delete_status_from_board(status_id):
+    if request.method == "DELETE":
+        print(status_id)
+        queires.delete_status(status_id)
 
 
 def main():

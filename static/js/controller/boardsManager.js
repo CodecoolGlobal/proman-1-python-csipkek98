@@ -28,15 +28,31 @@ export let boardsManager = {
     }
   },
   loadColumns : async function (boardId) {
-    const statuses = await dataHandler.getStatuses();      // only uses default values
+    const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
     for (let status of statuses) {
       const columnBuilder = htmlFactory(htmlTemplates.column);
       const content = columnBuilder(status);
       domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
-      // column event listeners here if needed
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "click",
+          deleteColumn
+          );
     }
   }
 };
+
+
+async function deleteColumn(clickEvent){
+  let click = clickEvent.target.parentElement
+  console.log(click)
+  if (click.classList.contains("board-column-remove")){
+    let columnId = click.parentElement.getAttribute("data-column-id")
+    await dataHandler.deleteStatus(columnId)
+    click.parentElement.remove()
+    }
+}
+
 
 async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
