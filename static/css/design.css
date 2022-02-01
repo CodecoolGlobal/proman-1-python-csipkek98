@@ -32,6 +32,14 @@ button{
     padding: 4px 10px;
 }
 
+button:hover{
+    background: #333;
+    scale: 1.1;
+}
+
+button:active{
+    scale: 0.9;
+}
 .board-container{
     max-width: 960px;
     margin: 0 auto;
@@ -50,6 +58,14 @@ section.board{
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
+.board-header input {
+    width: auto;
+    user-select: none;
+    border: none;
+    outline: none;
+    cursor: default;
+}
+
 .board-title{
     margin: 13px;
     display: inline-block;
@@ -59,10 +75,16 @@ section.board{
     display: inline-block;
 }
 
-.board-toggle{
+.board-toggle, .board-add, .save-title{
     float: right;
     margin: 13px;
 }
+
+.board-toggle.close{
+    rotate: 180deg;
+    transition: 0.5s ease;
+}
+
 
 .board-columns{
     display: flex;
@@ -126,4 +148,8 @@ section.board{
 
 .card-title{
     padding-right: 16px;
+}
+
+.save-title{
+    margin: 13px;
 }

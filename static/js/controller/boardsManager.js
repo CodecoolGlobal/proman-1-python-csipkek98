@@ -16,6 +16,16 @@ export let boardsManager = {
         "click",
         showHideButtonHandler
       );
+      domManager.addEventListener(
+          `.board[data-board-id="${board.id}"] input`,
+          "click",
+          toggleInput
+      );
+      domManager.addEventListener(
+          `.save-title[data-board-id="${board.id}"]`,
+          "click",
+          renameBoard
+      )
     }
   },
   loadColumns : async function (boardId) {
@@ -25,7 +35,7 @@ export let boardsManager = {
       const content = columnBuilder(status);
       domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       // column event listeners here if needed
-    };
+    }
   }
 };
 
@@ -44,7 +54,13 @@ async function showHideButtonHandler(clickEvent) {
     await boardsManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
+}
 
+function toggleInput(clickEvent) {
+  const targetInput = clickEvent.target;
+  targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+  targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
+  toggleSaveButtonForElement(targetInput);
 }
 
 
@@ -66,3 +82,20 @@ document.getElementById("save-board").addEventListener("click", async function (
   newBoardDiv.hidden = true;
 })
 
+
+function toggleSaveButtonForElement(element) {
+  const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)
+  if (saveButton) {
+    saveButton.hidden === true ? saveButton.hidden = false : saveButton.hidden = true;
+  } else {
+    console.log('no save button found')
+  }
+}
+
+async function renameBoard(clickEvent) {
+  const boardId = clickEvent.target.dataset.boardId;
+  const newTitle = document.querySelector(`input[data-board-id="${boardId}"]`)
+  await dataHandler.renameBoard(newTitle.value, boardId)
+  newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+  toggleSaveButtonForElement(newTitle)
+}

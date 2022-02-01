@@ -64,3 +64,25 @@ def create_board(board_title):
         INSERT INTO boards(title)
          VALUES (%(board_title)s)"""
         , {"board_title": board_title})
+
+
+def rename_board(title, board_id):
+    modded_id = data_manager.execute_select(
+        """
+        UPDATE boards SET title = %(title)s WHERE boards.id = %(board_id)s RETURNING id;
+        """
+        , {"board_id": board_id,
+           "title": title}
+    )
+    return modded_id
+
+def delete_card(card_id):
+    data_manager.execute_query(
+        """
+        DELETE FROM cards
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )
+
+
