@@ -66,6 +66,15 @@ def create_board(board_title):
         , {"board_title": board_title})
 
 
+def create_card(card_title):
+    data_manager.execute_insert(
+        """
+        INSERT INTO cards(title)
+        VALUES (%(card_title)s)""",
+        {"card_title": card_title}
+    )
+
+
 def rename_board(title, board_id):
     modded_id = data_manager.execute_select(
         """
@@ -75,6 +84,7 @@ def rename_board(title, board_id):
            "title": title}
     )
     return modded_id
+
 
 def delete_card(card_id):
     data_manager.execute_query(

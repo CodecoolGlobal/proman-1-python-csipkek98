@@ -61,6 +61,14 @@ def create_new_board():
     return 'board created'
 
 
+@app.route("/api/create/card/", methods=["POST"])
+@json_response
+def create_new_card():
+    card_title = request.get_json()
+    queires.create_card(card_title)
+    return  'card created'
+
+
 @app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
 @json_response
 def delete_card_from_board(card_id):

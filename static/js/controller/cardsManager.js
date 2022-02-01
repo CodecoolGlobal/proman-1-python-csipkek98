@@ -25,3 +25,14 @@ function deleteButtonHandler(clickEvent) {
     click.parentElement.remove()
   }
 }
+
+
+// create card
+setTimeout(() =>{
+  let newCardButtons = document.querySelectorAll(".board-add");
+for (let newCardButton of newCardButtons)
+newCardButton.addEventListener("click", function (){
+  console.log("newcardbutton")
+})
+}, 1000)
+
