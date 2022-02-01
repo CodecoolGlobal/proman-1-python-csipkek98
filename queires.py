@@ -59,7 +59,7 @@ def get_statuses():
 
 
 def delete_card(card_id):
-    data_manager.query(
+    data_manager.execute_query(
         """
         DELETE FROM cards
         WHERE id = %(card_id)s
