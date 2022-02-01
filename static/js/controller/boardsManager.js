@@ -53,4 +53,15 @@ async function showHideButtonHandler(clickEvent) {
 function toggleInput(clickEvent) {
   const targetInput = clickEvent.target;
   targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+  toggleSaveButtonForElement(targetInput);
+}
+
+function toggleSaveButtonForElement(element) {
+  const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)
+  if (saveButton) {
+    saveButton.hidden === true ? saveButton.hidden = false : saveButton.hidden = true;
+  } else {
+    console.log('no save button found')
+  }
+
 }

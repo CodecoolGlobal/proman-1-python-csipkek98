@@ -51,6 +51,7 @@ section.board{
 }
 
 .board-header input {
+    width: 15%;
     user-select: none;
     border: none;
     outline: none;
@@ -133,4 +134,8 @@ section.board{
 
 .card-title{
     padding-right: 16px;
+}
+
+.save-title{
+    margin: 13px;
 }
