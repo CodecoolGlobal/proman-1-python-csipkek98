@@ -20,6 +20,11 @@ export let boardsManager = {
           "click",
           toggleInput
       );
+      domManager.addEventListener(
+          `.save-title[data-board-id="${board.id}"]`,
+          "click",
+          renameBoard
+      )
     }
   },
   loadColumns : async function (boardId) {
@@ -64,5 +69,10 @@ function toggleSaveButtonForElement(element) {
   } else {
     console.log('no save button found')
   }
+}
 
+function renameBoard(clickEvent) {
+  const boardId = clickEvent.target.dataset.boardId;
+  const newTitle = document.querySelector(`input[data-board-id="${boardId}"]`).value
+  dataHandler.renameBoard(newTitle, boardId)
 }
