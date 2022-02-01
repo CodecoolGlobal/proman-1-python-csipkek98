@@ -53,6 +53,7 @@ async function showHideButtonHandler(clickEvent) {
 function toggleInput(clickEvent) {
   const targetInput = clickEvent.target;
   targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+  targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
   toggleSaveButtonForElement(targetInput);
 }
 
