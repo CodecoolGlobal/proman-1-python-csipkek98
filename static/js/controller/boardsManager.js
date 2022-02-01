@@ -71,8 +71,10 @@ function toggleSaveButtonForElement(element) {
   }
 }
 
-function renameBoard(clickEvent) {
+async function renameBoard(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
-  const newTitle = document.querySelector(`input[data-board-id="${boardId}"]`).value
-  dataHandler.renameBoard(newTitle, boardId)
+  const newTitle = document.querySelector(`input[data-board-id="${boardId}"]`)
+  await dataHandler.renameBoard(newTitle.value, boardId)
+  newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+  toggleSaveButtonForElement(newTitle)
 }

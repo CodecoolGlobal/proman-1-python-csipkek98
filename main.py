@@ -38,7 +38,6 @@ def get_boards():
 @json_response
 def rename_board(new_title: str, board_id: int):
     if request.method == "PUT":
-        print("put")
         queires.rename_board(new_title, board_id)
     else:
         return redirect(url_for('index'))
