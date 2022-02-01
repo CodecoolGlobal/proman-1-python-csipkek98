@@ -51,7 +51,7 @@ section.board{
 }
 
 .board-header input {
-    width: 15%;
+    width: auto;
     user-select: none;
     border: none;
     outline: none;
@@ -67,10 +67,11 @@ section.board{
     display: inline-block;
 }
 
-.board-toggle{
+.board-toggle, .board-add, .save-title{
     float: right;
     margin: 13px;
 }
+
 
 .board-columns{
     display: flex;
