@@ -58,6 +58,7 @@ def get_statuses():
     return default_statuses
 
 
+
 def rename_board(title, board_id):
     modded_id = data_manager.execute_select(
         """
@@ -67,3 +68,14 @@ def rename_board(title, board_id):
            "title": title}
     )
     return modded_id
+
+def delete_card(card_id):
+    data_manager.execute_query(
+        """
+        DELETE FROM cards
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )
+
+
