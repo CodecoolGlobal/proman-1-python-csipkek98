@@ -153,3 +153,10 @@ section.board{
 .save-title{
     margin: 13px;
 }
+
+.board-column-remove{
+    display: block;
+    cursor: pointer;
+    width: 14px;
+    height: 16px;
+}
