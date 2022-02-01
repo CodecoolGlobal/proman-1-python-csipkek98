@@ -22,7 +22,7 @@ function boardBuilder(board) {
     return `<div class="board-container">
             <section class="board" data-board-id=${board.id}>
                 <div class="board-header"><span class="board-title">${board.title}</span>
-                    <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down"></i></button>
+                    <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down" data-board-id="${board.id}"></i></button>
                 </div>
                 <div class="board-columns"></div>
             </section>

@@ -28,9 +28,11 @@ export let boardsManager = {
   }
 };
 
-function showHideButtonHandler(clickEvent) {
+async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
-  const openBoard = document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
+  console.log(boardId)
+  const openBoard = document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`)
+  console.log(openBoard)
   if (openBoard.hasChildNodes())
   {
     while (openBoard.hasChildNodes())
@@ -40,8 +42,7 @@ function showHideButtonHandler(clickEvent) {
   }
   else
   {
-    boardsManager.loadColumns(boardId);
-    cardsManager.loadCards(boardId);
+    await boardsManager.loadColumns(boardId);
+    await cardsManager.loadCards(boardId);
   }
-
 }
