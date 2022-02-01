@@ -1,13 +1,14 @@
 export let dataHandler = {
   getBoards: async function () {
     const response = await apiGet("/api/boards");
-    console.log(response)
     return response;
   },
   getBoard: async function (boardId) {
     // the board is retrieved and then the callback function is called with the board
   },
   getStatuses: async function () {
+    const response = await apiGet("/api/statuses")
+    return response
     // the statuses are retrieved and then the callback function is called with the statuses
   },
   getStatus: async function (statusId) {
@@ -15,6 +16,7 @@ export let dataHandler = {
   },
   getCardsByBoardId: async function (boardId) {
     const response = await apiGet(`/api/boards/${boardId}/cards/`);
+    console.log(response)
     return response;
   },
   getCard: async function (cardId) {

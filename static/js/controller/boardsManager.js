@@ -11,15 +11,37 @@ export let boardsManager = {
       const content = boardBuilder(board);
       domManager.addChild("#root", content);
       domManager.addEventListener(
-        `.toggle-board-button[data-board-id="${board.id}"]`,
+        `.board-toggle[data-board-id="${board.id}"]`,
         "click",
         showHideButtonHandler
       );
     }
   },
+  loadColumns : async function (boardId) {
+    const statuses = await dataHandler.getStatuses();      // only uses default values
+    for (let status of statuses) {
+      const columnBuilder = htmlFactory(htmlTemplates.column);
+      const content = columnBuilder(status);
+      domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
+      // column event listeners here if needed
+    };
+  }
 };
 
 function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
-  cardsManager.loadCards(boardId);
+  const openBoard = document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
+  if (openBoard.hasChildNodes())
+  {
+    while (openBoard.hasChildNodes())
+    {
+      openBoard.removeChild(openBoard.lastChild);
+    }
+  }
+  else
+  {
+    boardsManager.loadColumns(boardId);
+    cardsManager.loadCards(boardId);
+  }
+
 }
