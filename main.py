@@ -1,5 +1,6 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from dotenv import load_dotenv
+
 
 
 from util import json_response
@@ -42,6 +43,13 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return queires.get_cards_for_board(board_id)
+
+
+@app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
+@json_response
+def delete_card_from_board(card_id):
+    if request.method == "DELETE":
+        queires.delete_card(card_id)
 
 
 def main():

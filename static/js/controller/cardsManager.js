@@ -18,4 +18,10 @@ export let cardsManager = {
   },
 };
 
-function deleteButtonHandler(clickEvent) {}
+function deleteButtonHandler(clickEvent) {
+  let click = clickEvent.target.parentElement
+  if(click.classList.contains("card-remove")){
+    dataHandler.deleteCard(click.parentElement.getAttribute("data-card-id"))
+    click.parentElement.remove()
+  }
+}

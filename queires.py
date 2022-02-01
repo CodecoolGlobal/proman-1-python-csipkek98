@@ -56,3 +56,14 @@ def get_statuses():
         WHERE id < 5"""
     )
     return default_statuses
+
+
+def delete_card(card_id):
+    data_manager.query(
+        """
+        DELETE FROM cards
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )
+

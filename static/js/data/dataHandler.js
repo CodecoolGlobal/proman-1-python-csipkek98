@@ -16,7 +16,6 @@ export let dataHandler = {
   },
   getCardsByBoardId: async function (boardId) {
     const response = await apiGet(`/api/boards/${boardId}/cards/`);
-    console.log(response)
     return response;
   },
   getCard: async function (cardId) {
@@ -28,6 +27,9 @@ export let dataHandler = {
   createNewCard: async function (cardTitle, boardId, statusId) {
     // creates new card, saves it and calls the callback function with its data
   },
+  deleteCard: async function (cardId){
+    await apiDelete(`/api/${cardId}/delete_card/`)
+  }
 };
 
 async function apiGet(url) {
@@ -42,6 +44,10 @@ async function apiGet(url) {
 
 async function apiPost(url, payload) {}
 
-async function apiDelete(url) {}
+async function apiDelete(url) {
+  let response = await fetch(url, {
+    method: "DELETE"
+  });
+}
 
 async function apiPut(url) {}
