@@ -33,5 +33,13 @@ def get_user_by_id(user_id):
     return data_manager.execute_select(query, {"user_id": user_id}, fetchall=False)
 
 
+def is_user_exists(name="", email=""):
+    query = """
+        SELECT * FROM users
+        WHERE LOWER(name) = %(name)s OR LOWER(email) = %(email)s"""
+    user = data_manager.execute_select(query, {"name": name.lower(), "email": email.lower()}, fetchall=False)
+    return bool(user)
+
+
 if __name__ == "__main__":
-    register_user(DATA)
+    print(is_user_exists("admi"))
