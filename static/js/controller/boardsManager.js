@@ -5,6 +5,7 @@ import { cardsManager } from "./cardsManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
+    document.getElementById("root").innerHTML=""
     const boards = await dataHandler.getBoards();
     for (let board of boards) {
       const boardBuilder = htmlFactory(htmlTemplates.board);
@@ -77,6 +78,26 @@ function toggleInput(clickEvent) {
   targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
   toggleSaveButtonForElement(targetInput);
 }
+
+
+// create board
+const newBoardButton = document.getElementById("new-board")
+const newBoardDiv = document.getElementById("new-board-div")
+
+
+newBoardButton.addEventListener("click", function (){
+  newBoardButton.style.display='none';
+  newBoardDiv.hidden = false;
+})
+
+document.getElementById("save-board").addEventListener("click", async function (){
+  let response = await dataHandler.createNewBoard(document.getElementById("board-title").value);
+  console.log(response);
+  boardsManager.loadBoards();
+  newBoardButton.style.display='block';
+  newBoardDiv.hidden = true;
+})
+
 
 function toggleSaveButtonForElement(element) {
   const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)
