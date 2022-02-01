@@ -50,6 +50,13 @@ section.board{
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
+.board-header input {
+    user-select: none;
+    border: none;
+    outline: none;
+    cursor: default;
+}
+
 .board-title{
     margin: 13px;
     display: inline-block;

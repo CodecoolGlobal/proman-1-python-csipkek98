@@ -15,6 +15,11 @@ export let boardsManager = {
         "click",
         showHideButtonHandler
       );
+      domManager.addEventListener(
+          `.board[data-board-id="${board.id}"] input`,
+          "click",
+          toggleInput
+      );
     }
   },
   loadColumns : async function (boardId) {
@@ -24,7 +29,7 @@ export let boardsManager = {
       const content = columnBuilder(status);
       domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       // column event listeners here if needed
-    };
+    }
   }
 };
 
@@ -43,5 +48,9 @@ async function showHideButtonHandler(clickEvent) {
     await boardsManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
+}
 
+function toggleInput(clickEvent) {
+  const targetInput = clickEvent.target;
+  targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
 }
