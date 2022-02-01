@@ -23,7 +23,7 @@ export let dataHandler = {
     // the card is retrieved and then the callback function is called with the card
   },
   createNewBoard: async function (boardTitle) {
-    const response = await apiGet("/api/create/board");
+    const response = await apiPost("/api/create/board", boardTitle);
     return response;
     // creates new board, saves it and calls the callback function with its data
   },
@@ -42,7 +42,18 @@ async function apiGet(url) {
   }
 }
 
-async function apiPost(url, payload) {}
+async function apiPost(url, payload) {
+  let response = await fetch(url, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  if (response.status === 200) {
+    return response.json();
+  }
+}
 
 async function apiDelete(url) {}
 

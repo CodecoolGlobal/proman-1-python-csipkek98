@@ -5,6 +5,7 @@ import { cardsManager } from "./cardsManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
+    document.getElementById("root").innerHTML=""
     const boards = await dataHandler.getBoards();
     for (let board of boards) {
       const boardBuilder = htmlFactory(htmlTemplates.board);
@@ -46,11 +47,22 @@ async function showHideButtonHandler(clickEvent) {
 
 }
 
+
+// create board
 const newBoardButton = document.getElementById("new-board")
 const newBoardDiv = document.getElementById("new-board-div")
 
 
 newBoardButton.addEventListener("click", function (){
-  newBoardButton.hidden
-  newBoardDiv.innerHTML= '<input type="text" name="board-title"><button id="save-board" type="submit">Save</button>'
+  newBoardButton.style.display='none';
+  newBoardDiv.hidden = false;
 })
+
+document.getElementById("save-board").addEventListener("click", async function (){
+  let response = await dataHandler.createNewBoard(document.getElementById("board-title").value);
+  console.log(response);
+  boardsManager.loadBoards();
+  newBoardButton.style.display='block';
+  newBoardDiv.hidden = true;
+})
+
