@@ -26,5 +26,12 @@ def register_user(data):
     data_manager.execute_query(query, data)
 
 
+def get_user_by_id(user_id):
+    query = """
+    SELECT * FROM users
+    WHERE id = %(user_id)s"""
+    return data_manager.execute_select(query, {"user_id": user_id}, fetchall=False)
+
+
 if __name__ == "__main__":
     register_user(DATA)
