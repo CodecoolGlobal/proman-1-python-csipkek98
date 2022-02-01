@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from dotenv import load_dotenv
 
 
@@ -50,8 +50,14 @@ def register():
     if request.method == "POST":
         user_data = request.form.copy()
         user_manager.register_user(user_data)
-        return redirect('index.html')
+        return redirect(url_for('index'))
     return render_template('register.html')
+
+
+@app.route("/api/register", methods=["GET", "POST"])
+def register_api():
+    is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
+    return jsonify(is_exist)
 
 
 def main():
@@ -63,4 +69,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()
