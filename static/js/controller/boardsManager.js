@@ -45,3 +45,12 @@ async function showHideButtonHandler(clickEvent) {
   }
 
 }
+
+const newBoardButton = document.getElementById("new-board")
+const newBoardDiv = document.getElementById("new-board-div")
+
+
+newBoardButton.addEventListener("click", function (){
+  newBoardButton.hidden
+  newBoardDiv.innerHTML= '<input type="text" name="board-title"><button id="save-board" type="submit">Save</button>'
+})

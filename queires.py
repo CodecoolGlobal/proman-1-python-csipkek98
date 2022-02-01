@@ -56,3 +56,11 @@ def get_statuses():
         WHERE id < 5"""
     )
     return default_statuses
+
+
+def create_board(board_title):
+    data_manager.execute_insert(
+        """
+        INSERT INTO boards(title)
+         VALUES (%(board_title)s)"""
+        , {"board_title": board_title["board_title"]})
