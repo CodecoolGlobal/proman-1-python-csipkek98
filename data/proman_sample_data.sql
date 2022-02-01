@@ -14,12 +14,20 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 ---
+--- drop constraints
+---
+
+ALTER TABLE IF EXISTS ONLY public.cards DROP CONSTRAINT IF EXISTS fk_cards_board_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.cards DROP CONSTRAINT IF EXISTS fk_cards_status_id CASCADE;
+
+---
 --- drop tables
 ---
 
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
-DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS cards CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 ---
 --- create tables
@@ -43,9 +51,18 @@ CREATE TABLE cards (
     card_order  INTEGER             NOT NULL
 );
 
+CREATE TABLE users (
+    id          SERIAL PRIMARY KEY NOT NULL,
+    name        TEXT,
+    password    TEXT,
+    registered  timestamp without time zone,
+    email       TEXT
+);
 ---
 --- insert data
 ---
+
+INSERT INTO users VALUES (nextval('users_id_seq'), 'admin', '$2b$12$Rp1a9lkPt5dTtgZTUH4GxOHMJ.3BB5lCg/Ao5C18q/dAsjiJk70uK', '1000-01-01 00:00:00', 'admin@mail.com');
 
 INSERT INTO statuses(title) VALUES ('new');
 INSERT INTO statuses(title) VALUES ('in progress');
@@ -73,7 +90,7 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 4, 'done card 1', 2);
 ---
 
 ALTER TABLE ONLY cards
-    ADD CONSTRAINT fk_cards_board_id FOREIGN KEY (board_id) REFERENCES boards(id);
+    ADD CONSTRAINT fk_cards_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY cards
-    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id);
+    ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
