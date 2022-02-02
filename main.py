@@ -57,7 +57,7 @@ def register():
 @app.route("/api/register", methods=["GET", "POST"])
 def register_api():
     is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
-    return jsonify(is_exist)
+    return jsonify(not is_exist)
 
 
 def main():

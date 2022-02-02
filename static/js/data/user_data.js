@@ -1,7 +1,4 @@
 
-const URL = {
-  register: "/api/register"
-}
 
 export async function validate_user(url){
   let form = new URLSearchParams(new FormData(document.querySelector(".register")));
