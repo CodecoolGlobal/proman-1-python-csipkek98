@@ -17,9 +17,27 @@ async function handleInvalidUsername(event){
   }
 }
 
-function initBtnClick(){
-  let submitBtn = document.querySelector(".submit");
-  submitBtn.addEventListener('click', handleInvalidUsername);
+function handleSignInUpToggle(){
+  let register = document.querySelector(".register");
+  let login = document.querySelector(".login");
+  if(this.id === "register"){
+    login.style.display = "none";
+    register.style.display = "block";
+  }
+  else if(this.id === "login"){
+    login.style.display = "block";
+    register.style.display = "none";
+  }
 }
 
-initBtnClick();
+async function initBtnClick(){
+  let submitBtn = await document.querySelector(".submit");
+  submitBtn.addEventListener('click', handleInvalidUsername);
+
+  let registerBtn = await document.querySelector("#register");
+  let loginBtn = await document.querySelector("#login");
+  loginBtn.addEventListener('click', handleSignInUpToggle);
+  registerBtn.addEventListener('click', handleSignInUpToggle);
+}
+
+await initBtnClick();
