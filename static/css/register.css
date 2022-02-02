@@ -1,10 +1,18 @@
 .container{
     padding-top: 20vh;
     width: 35vw;
-    height: 73vh;
+    height: 65vh;
 }
 
 .bi-exclamation-triangle-fill{
     width: 24px;
     height: 24px;
+}
+
+.register{
+    display: none;
+}
+
+.login{
+    display: block;
 }

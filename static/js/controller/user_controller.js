@@ -7,7 +7,7 @@ const URL = {
 
 async function handleInvalidUsername(event){
   event.preventDefault();
-  const is_valid = await validate_user(URL.register);
+  const is_valid = await validate_user(URL.register, ".register");
   if(is_valid){
     await this.removeEventListener('click', handleInvalidUsername);
     this.click();
@@ -18,8 +18,8 @@ async function handleInvalidUsername(event){
 }
 
 function initBtnClick(){
-  let submitBtn = document.querySelector(".btn");
-  submitBtn.addEventListener('click', handleInvalidUsername)
+  let submitBtn = document.querySelector(".submit");
+  submitBtn.addEventListener('click', handleInvalidUsername);
 }
 
 initBtnClick();

@@ -51,7 +51,7 @@ def register():
         user_data = request.form.copy()
         user_manager.register_user(user_data)
         return redirect(url_for('index'))
-    return render_template('register.html')
+    return render_template('user_sign.html')
 
 
 @app.route("/api/register", methods=["GET", "POST"])
