@@ -68,6 +68,10 @@ INSERT INTO statuses(title) VALUES ('new');
 INSERT INTO statuses(title) VALUES ('in progress');
 INSERT INTO statuses(title) VALUES ('testing');
 INSERT INTO statuses(title) VALUES ('done');
+INSERT INTO statuses(title) VALUES ('new');
+INSERT INTO statuses(title) VALUES ('in progress');
+INSERT INTO statuses(title) VALUES ('testing');
+INSERT INTO statuses(title) VALUES ('done');
 
 INSERT INTO boards(title) VALUES ('Board 1');
 INSERT INTO boards(title) VALUES ('Board 2');
@@ -78,12 +82,12 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 2, 'in progress card', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 3, 'planning', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 4, 'done card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 1, 4, 'done card 1', 2);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 1, 'new card 1', 1);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 1, 'new card 2', 2);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 2, 'in progress card', 1);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 3, 'planning', 1);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 4, 'done card 1', 1);
-INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 4, 'done card 1', 2);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 5, 'new card 1', 1);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 5, 'new card 2', 2);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 6, 'in progress card', 1);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 7, 'planning', 1);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 1);
+INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 2);
 
 ---
 --- add constraints

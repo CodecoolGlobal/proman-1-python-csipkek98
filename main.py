@@ -20,10 +20,10 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/api/statuses")
+@app.route("/api/statuses/<board_id>")
 @json_response
-def get_statuses():
-    return queires.get_statuses()
+def get_statuses(board_id):
+    return queires.get_statuses(board_id)
 
 
 @app.route("/api/boards")
@@ -33,6 +33,15 @@ def get_boards():
     All the boards
     """
     return queires.get_boards()
+
+
+@app.route("/api/boards/<int:board_id>/rename/<string:new_title>", methods=["GET", "PUT"])
+@json_response
+def rename_board(new_title: str, board_id: int):
+    if request.method == "PUT":
+        queires.rename_board(new_title, board_id)
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route("/api/boards/<int:board_id>/cards/")
@@ -52,6 +61,35 @@ def register():
         user_manager.register_user(user_data)
         return redirect('index.html')
     return render_template('register.html')
+
+
+@app.route("/api/create/board/", methods=["POST"])
+@json_response
+def create_new_board():
+    board_title = request.get_json()
+    queires.create_board(board_title)
+    return 'board created'
+
+
+@app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
+@json_response
+def delete_card_from_board(card_id):
+    if request.method == "DELETE":
+        queires.delete_card(card_id)
+
+
+@app.route("/api/<status_id>/delete_status/", methods=['DELETE'])
+@json_response
+def delete_status_from_board(status_id):
+    if request.method == "DELETE":
+        queires.delete_status(status_id)
+
+
+@app.route("/api/<board_id>/delete_board/", methods=['DELETE'])
+@json_response
+def delete_board(board_id):
+    if request.method == "DELETE":
+        queires.delete_board(board_id)
 
 
 def main():

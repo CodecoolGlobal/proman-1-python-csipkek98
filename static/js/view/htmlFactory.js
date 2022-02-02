@@ -21,8 +21,12 @@ export function htmlFactory(template) {
 function boardBuilder(board) {
     return `<div class="board-container">
             <section class="board" data-board-id=${board.id}>
-                <div class="board-header"><span class="board-title">${board.title}</span>
+                <div class="board-header">
+                    <input class="board-title" value="${board.title}" data-board-id="${board.id}" readonly>
                     <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down" data-board-id="${board.id}"></i></button>
+                    <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                    <button class="board-add" data-board-id="${board.id}">Add card</button>
+                    <button class="save-title" data-board-id="${board.id}" hidden>Save</button>                    
                 </div>
                 <div class="board-columns"></div>
             </section>
@@ -30,7 +34,8 @@ function boardBuilder(board) {
 }
 
 function columnBuilder(status) {
-    return `<div class="board-column">
+    return `<div class="board-column" data-column-id="${status.id}">
+                <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
                 <div class="board-column-title">${status.title}</div>
                 <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
