@@ -60,6 +60,21 @@ def get_username_validation():
     return jsonify(not is_exist)
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user_data = request.form.copy()
+        if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
+            return redirect(url_for('index'))
+    return render_template('login.html')
+
+
+@app.route("/api/login", methods=["GET", "POST"])
+def get_password_validation():
+    is_pswd_correct = user_manager.validate_password_by_name(request.form["name"], request.form["password"])
+    return jsonify(is_pswd_correct)
+
+
 def main():
     app.run(debug=True)
 

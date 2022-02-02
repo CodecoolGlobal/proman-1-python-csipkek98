@@ -41,5 +41,20 @@ def is_user_exists(name="", email=""):
     return bool(user)
 
 
+def get_user_by_name_email(name=""):
+    query = """
+        SELECT * FROM users
+        WHERE LOWER(name) = %(name)s OR LOWER(email) = %(email)s"""
+    return data_manager.execute_select(query, {"name": name.lower(), "email": name.lower()}, fetchall=False)
+
+
+def validate_password_by_name(name, password):
+    user = get_user_by_name_email(name)
+    hashed_password = ""
+    if user["password"]:
+        hashed_password = user["password"]
+    return verify_password(password, hashed_password)
+
+
 if __name__ == "__main__":
     print(is_user_exists("admi"))
