@@ -26,6 +26,11 @@ export let boardsManager = {
           "click",
           renameBoard
       )
+      domManager.addEventListener(
+          `.board-toggle[data-board-remove="${board.id}"]`,
+          "click",
+          deleteBoard
+      )
     }
   },
   loadColumns : async function (boardId) {
@@ -46,12 +51,24 @@ export let boardsManager = {
 
 async function deleteColumn(clickEvent){
   let click = clickEvent.target.parentElement
-  console.log(click)
   if (click.classList.contains("board-column-remove")){
     let columnId = click.parentElement.getAttribute("data-column-id")
     await dataHandler.deleteStatus(columnId)
     click.parentElement.remove()
     }
+}
+
+async function deleteBoard(clickEvent){
+  let click = clickEvent.target
+  let boardId = ""
+  if(click.classList.contains("fa-trash-alt")){
+    click = clickEvent.target.parentElement
+    }
+  if(click.hasAttribute("data-board-remove")){
+    boardId = click.getAttribute("data-board-remove")
+    }
+  await dataHandler.deleteBoard(boardId)
+  click.parentElement.parentElement.parentElement.remove() //remove the whole board container
 }
 
 

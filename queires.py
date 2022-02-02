@@ -81,6 +81,7 @@ def rename_board(title, board_id):
     )
     return modded_id
 
+
 def delete_card(card_id):
     data_manager.execute_query(
         """
@@ -98,6 +99,16 @@ def delete_status(status_id):
         WHERE id = %(status_id)s
         """
         , {"status_id": status_id}
+    )
+
+
+def delete_board(board_id):
+    data_manager.execute_query(
+        """
+        DELETE FROM boards
+        WHERE id = %(board_id)s
+        """
+        , {"board_id": board_id}
     )
 
 

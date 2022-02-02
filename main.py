@@ -72,8 +72,14 @@ def delete_card_from_board(card_id):
 @json_response
 def delete_status_from_board(status_id):
     if request.method == "DELETE":
-        print(status_id)
         queires.delete_status(status_id)
+
+
+@app.route("/api/<board_id>/delete_board/", methods=['DELETE'])
+@json_response
+def delete_board(board_id):
+    if request.method == "DELETE":
+        queires.delete_board(board_id)
 
 
 def main():

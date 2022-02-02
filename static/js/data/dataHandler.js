@@ -38,6 +38,9 @@ export let dataHandler = {
   },
   deleteStatus: async function (statusId){
     await apiDelete(`/api/${statusId}/delete_status/`)
+  },
+  deleteBoard: async function (statusId){
+    await apiDelete(`/api/${statusId}/delete_board/`)
   }
 };
 
