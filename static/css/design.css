@@ -54,6 +54,9 @@ section.board{
     border-radius: 3px;
 }
 
+form {
+    display: inline-flex;
+}
 .board-header{
     height: 50px;
     background: #fff;
