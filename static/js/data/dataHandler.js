@@ -57,7 +57,6 @@ export async function apiGet(url) {
   });
   if (response.status === 200) {
     let data = response.json();
-    console.log(data)
     return data;
   }
 }
