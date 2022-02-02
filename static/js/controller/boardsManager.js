@@ -2,9 +2,11 @@ import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
+import { archiveManager } from "./archiveManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
+    document.getElementById("root").innerHTML=""
     const boards = await dataHandler.getBoards();
     for (let board of boards) {
       const boardBuilder = htmlFactory(htmlTemplates.board);
@@ -25,18 +27,66 @@ export let boardsManager = {
           "click",
           renameBoard
       )
+      domManager.addEventListener(
+          `.board-toggle[data-board-remove="${board.id}"]`,
+          "click",
+          deleteBoard
+      )
+      domManager.addEventListener(
+          "#myBtn",
+          "click",
+          archiveManager.loadModal
+      )
+      domManager.addEventListener(
+          `.board-add[data-board-id="${board.id}"]`,
+          "click",
+          cardsManager.showInputCard
+      )
+      domManager.addEventListener(
+          `.save-card[data-board-id="${board.id}"]`,
+          "click",
+          cardsManager.saveCard
+      )
     }
   },
   loadColumns : async function (boardId) {
-    const statuses = await dataHandler.getStatuses();      // only uses default values
+    const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
     for (let status of statuses) {
       const columnBuilder = htmlFactory(htmlTemplates.column);
       const content = columnBuilder(status);
       domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
-      // column event listeners here if needed
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "click",
+          deleteColumn
+          );
     }
   }
 };
+
+
+async function deleteColumn(clickEvent){
+  let click = clickEvent.target.parentElement
+  if (click.classList.contains("board-column-remove")){
+    let columnId = click.parentElement.getAttribute("data-column-id")
+    await dataHandler.deleteStatus(columnId)
+    click.parentElement.remove()
+    }
+}
+
+async function deleteBoard(clickEvent){
+  let click = clickEvent.target
+  let boardId = ""
+  if(click.classList.contains("fa-trash-alt")){
+    click = clickEvent.target.parentElement
+    }
+  if(click.hasAttribute("data-board-remove")){
+    boardId = click.getAttribute("data-board-remove")
+    }
+  await dataHandler.deleteBoard(boardId)
+  click.parentElement.parentElement.parentElement.remove() //remove the whole board container
+}
+
 
 async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
@@ -45,14 +95,17 @@ async function showHideButtonHandler(clickEvent) {
   {
     while (openBoard.hasChildNodes())
     {
+      document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'none'
       openBoard.removeChild(openBoard.lastChild);
     }
   }
   else
   {
+    document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
     await boardsManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
+
 }
 
 function toggleInput(clickEvent) {
@@ -61,6 +114,26 @@ function toggleInput(clickEvent) {
   targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
   toggleSaveButtonForElement(targetInput);
 }
+
+
+// create board
+const newBoardButton = document.getElementById("new-board")
+const newBoardDiv = document.getElementById("new-board-div")
+
+
+newBoardButton.addEventListener("click", function (){
+  newBoardButton.style.display='none';
+  newBoardDiv.hidden = false;
+})
+
+document.getElementById("save-board").addEventListener("click", async function (){
+  let response = await dataHandler.createNewBoard(document.getElementById("board-title").value);
+  console.log(response);
+  boardsManager.loadBoards();
+  newBoardButton.style.display='block';
+  newBoardDiv.hidden = true;
+})
+
 
 function toggleSaveButtonForElement(element) {
   const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)

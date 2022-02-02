@@ -7,6 +7,7 @@
 }
 
 body{
+    margin-top: 100px;
     min-width: 620px;
     background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
     font-family: sans-serif;
@@ -21,6 +22,7 @@ h1{
     font-size: 4em;
     letter-spacing: 5px;
     transform: scale(1.2, 1);
+    width: 90vw
 }
 
 button{
@@ -82,7 +84,7 @@ section.board{
     display: inline-block;
 }
 
-.board-toggle, .board-add, .save-title{
+.board-toggle, .board-add, .save-title, .save-card, .card-title-input{
     float: right;
     margin: 13px;
 }
@@ -159,4 +161,11 @@ section.board{
 
 .save-title{
     margin: 13px;
+}
+
+.board-column-remove{
+    display: block;
+    cursor: pointer;
+    width: 14px;
+    height: 16px;
 }

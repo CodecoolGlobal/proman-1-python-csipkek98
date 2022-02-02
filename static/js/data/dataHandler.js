@@ -6,8 +6,8 @@ export let dataHandler = {
   getBoard: async function (boardId) {
     // the board is retrieved and then the callback function is called with the board
   },
-  getStatuses: async function () {
-    const response = await apiGet("/api/statuses")
+  getStatuses: async function (boardId) {
+    const response = await apiGet(`/api/statuses/${boardId}`)
     return response
     // the statuses are retrieved and then the callback function is called with the statuses
   },
@@ -22,9 +22,14 @@ export let dataHandler = {
     // the card is retrieved and then the callback function is called with the card
   },
   createNewBoard: async function (boardTitle) {
+    const response = await apiPost("/api/create/board", boardTitle);
+    return response;
     // creates new board, saves it and calls the callback function with its data
   },
   createNewCard: async function (cardTitle, boardId, statusId) {
+    let card = {'cardTitle': cardTitle, 'boardId': boardId, 'statusId': statusId}
+    const response = await apiPost("/api/create/card", card)
+    return response
     // creates new card, saves it and calls the callback function with its data
   },
   renameBoard: async function (newTitle, boardId) {
@@ -35,11 +40,21 @@ export let dataHandler = {
     await apiDelete(`/api/${cardId}/delete_card/`)
   },
   renameCard: async function (newTitle, cardId) {
-    const response = await apiPut()
+      const response = await apiPut()
+  },
+  deleteStatus: async function (statusId){
+    await apiDelete(`/api/${statusId}/delete_status/`)
+  },
+  deleteBoard: async function (statusId){
+    await apiDelete(`/api/${statusId}/delete_board/`)
+  },
+  getArchive: async function (){
+    const response = await apiGet("/api/archive")
+    return response
   }
 };
 
-async function apiGet(url) {
+export async function apiGet(url) {
   let response = await fetch(url, {
     method: "GET",
   });
@@ -49,7 +64,18 @@ async function apiGet(url) {
   }
 }
 
-async function apiPost(url, payload) {}
+async function apiPost(url, payload) {
+  let response = await fetch(url, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  if (response.status === 200) {
+    return response.json();
+  }
+}
 
 async function apiDelete(url) {
   let response = await fetch(url, {
