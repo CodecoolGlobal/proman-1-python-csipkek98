@@ -44,7 +44,7 @@ function columnBuilder(status) {
 function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}">
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                <div class="card-title">${card.title}</div>
+                <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
             </div>`;
 }
 

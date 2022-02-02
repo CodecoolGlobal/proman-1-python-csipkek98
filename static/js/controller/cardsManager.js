@@ -14,6 +14,11 @@ export let cardsManager = {
         "click",
         deleteButtonHandler
       );
+      domManager.addEventListener(
+          `input[data-card-id="${card.id}"]`,
+          "click",
+          toggleInput
+      )
     }
   },
 };
@@ -24,4 +29,17 @@ function deleteButtonHandler(clickEvent) {
     dataHandler.deleteCard(click.parentElement.getAttribute("data-card-id"))
     click.parentElement.remove()
   }
+}
+
+async function renameCard(clickEvent) {
+  const cardId = clickEvent.target.dataset.cardId;
+  const newTitle = document.querySelector(`input[data-card-id="${cardId}"]`);
+  await dataHandler.renameCard(newTitle.value, cardId);
+  newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+}
+
+function toggleInput(clickEvent) {
+  const targetInput = clickEvent.target;
+  targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+  targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
 }

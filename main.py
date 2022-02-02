@@ -61,6 +61,15 @@ def delete_card_from_board(card_id):
         queires.delete_card(card_id)
 
 
+@app.route("/api/cards/<int:card_id>/rename/<string:new_title>", methods=["GET", "PUT"])
+@json_response
+def rename_card(new_title: str, card_id: int):
+    if request.method == "PUT":
+        queires.rename_card(new_title, card_id)
+    else:
+        return redirect(url_for('index'))
+
+
 def main():
     app.run(debug=True)
 

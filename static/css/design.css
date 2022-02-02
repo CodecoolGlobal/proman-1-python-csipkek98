@@ -58,12 +58,19 @@ section.board{
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
-.board-header input {
+.board-header input,
+.card-title input{
     width: auto;
     user-select: none;
     border: none;
     outline: none;
+    background: none;
     cursor: default;
+}
+
+.card-title input{
+    width: 100%;
+    color: white;
 }
 
 .board-title{
@@ -88,7 +95,7 @@ section.board{
 
 .board-columns{
     display: flex;
-    flex-wrap: nowrap;
+    justify-content: space-evenly;
 }
 
 .board-column{
