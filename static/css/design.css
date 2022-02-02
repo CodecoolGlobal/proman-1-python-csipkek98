@@ -75,7 +75,7 @@ section.board{
     display: inline-block;
 }
 
-.board-toggle, .board-add, .save-title{
+.board-toggle, .board-add, .save-title, .save-card, .card-title-input{
     float: right;
     margin: 13px;
 }

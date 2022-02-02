@@ -26,6 +26,16 @@ export let boardsManager = {
           "click",
           renameBoard
       )
+      domManager.addEventListener(
+          `.board-add[data-board-id="${board.id}"]`,
+          "click",
+          cardsManager.showInputCard
+      )
+      domManager.addEventListener(
+          `.save-card[data-board-id="${board.id}"]`,
+          "click",
+          cardsManager.saveCard
+      )
     }
   },
   loadColumns : async function (boardId) {
