@@ -20,6 +20,7 @@ SET default_with_oids = false;
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS archive;
 
 ---
 --- create tables
@@ -36,6 +37,14 @@ CREATE TABLE boards (
 );
 
 CREATE TABLE cards (
+    id          SERIAL PRIMARY KEY  NOT NULL,
+    board_id    INTEGER             NOT NULL,
+    status_id   INTEGER             NOT NULL,
+    title       VARCHAR (200)       NOT NULL,
+    card_order  INTEGER             NOT NULL
+);
+
+CREATE TABLE archive (
     id          SERIAL PRIMARY KEY  NOT NULL,
     board_id    INTEGER             NOT NULL,
     status_id   INTEGER             NOT NULL,
@@ -71,6 +80,8 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 6, 'in progress card', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 7, 'planning', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 2);
+
+INSERT INTO archive VALUES (13, 2, 8, 'done card 1', 2);
 
 ---
 --- add constraints
