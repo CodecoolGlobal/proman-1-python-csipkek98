@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify, session
 from dotenv import load_dotenv
 
 
@@ -10,6 +10,7 @@ import user_manager
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
+app.secret_key = "a very very secret key: hdauigfgteuzdaegku"
 
 
 @app.route("/")
@@ -59,7 +60,7 @@ def register():
     if request.method == "POST":
         user_data = request.form.copy()
         user_manager.register_user(user_data)
-        return redirect('index.html')
+        return redirect(url_for('index'))
     return render_template('register.html')
 
 
@@ -92,6 +93,28 @@ def delete_board(board_id):
         queires.delete_board(board_id)
 
 
+@app.route("/api/register", methods=["GET", "POST"])
+def get_username_validation():
+    is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
+    return jsonify(not is_exist)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user_data = request.form.copy()
+        if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
+            session["user"] = user_data["name"]
+            return redirect(url_for('index'))
+    return render_template('login.html')
+
+
+@app.route("/api/login", methods=["GET", "POST"])
+def get_password_validation():
+    is_pswd_correct = user_manager.validate_password_by_name(request.form["name"], request.form["password"])
+    return jsonify(is_pswd_correct)
+
+
 def main():
     app.run(debug=True)
 
@@ -101,4 +124,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()

@@ -1,5 +1,10 @@
 .container{
     padding-top: 20vh;
     width: 35vw;
-    height: 73vh;
+    height: auto;
+}
+
+.bi-exclamation-triangle-fill{
+    width: 24px;
+    height: 24px;
 }
