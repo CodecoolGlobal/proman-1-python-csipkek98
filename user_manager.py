@@ -50,10 +50,10 @@ def get_user_by_name_email(name=""):
 
 def validate_password_by_name(name, password):
     user = get_user_by_name_email(name)
-    hashed_password = ""
-    if user["password"]:
+    if user:
         hashed_password = user["password"]
-    return verify_password(password, hashed_password)
+        return verify_password(password, hashed_password)
+    return False
 
 
 if __name__ == "__main__":

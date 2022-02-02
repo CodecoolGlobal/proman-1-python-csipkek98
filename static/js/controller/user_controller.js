@@ -2,7 +2,8 @@ import { validate_user } from "../data/user_data.js"
 import { createAlertBox } from "../view/user_view.js"
 
 const URL = {
-  register: "/api/register"
+  register: "/api/register",
+  login: "/api/login"
 }
 
 async function handleInvalidUsername(event){
@@ -17,9 +18,27 @@ async function handleInvalidUsername(event){
   }
 }
 
+async function handleInvalidPassword(event){
+  event.preventDefault();
+  const is_valid = await validate_user(URL.login, ".login");
+  if(is_valid){
+    await this.removeEventListener('click', handleInvalidPassword);
+    this.click();
+  }
+  else {
+    createAlertBox("Invalid username or password, please try again.");
+  }
+}
+
 async function initBtnClick(){
-  let submitBtn = await document.querySelector(".submit");
-  submitBtn.addEventListener('click', handleInvalidUsername);
+  let registerBtn = await document.querySelector(".submit-register");
+  let loginBtn = await document.querySelector(".submit-login");
+  if(registerBtn) {
+    registerBtn.addEventListener('click', handleInvalidUsername);
+  }
+  if(loginBtn) {
+    loginBtn.addEventListener('click', handleInvalidPassword);
+  }
 }
 
 await initBtnClick();
