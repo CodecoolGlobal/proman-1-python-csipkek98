@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, jsonify
+from flask import Flask, render_template, url_for, request, redirect, jsonify, session
 from dotenv import load_dotenv
 
 
@@ -10,6 +10,7 @@ import user_manager
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
+app.secret_key = "a very very secret key: hdauigfgteuzdaegku"
 
 
 @app.route("/")
@@ -65,6 +66,7 @@ def login():
     if request.method == "POST":
         user_data = request.form.copy()
         if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
+            session["user"] = user_data["name"]
             return redirect(url_for('index'))
     return render_template('login.html')
 
