@@ -71,6 +71,18 @@ def create_board(board_title):
         , {"board_title": board_title})
 
 
+def create_card(card_title, board_id, status_id):
+    data_manager.execute_insert(
+        """       
+        INSERT INTO cards(title, board_id, status_id, card_order)
+        VALUES (%(card_title)s, %(board_id)s, %(status_id)s, (
+        SELECT MAX(card_order)+1
+        FROM cards
+        WHERE board_id = %(board_id)s AND status_id = %(status_id)s))""",
+        {"card_title": card_title, "board_id": board_id, "status_id": status_id}
+    )
+
+
 def rename_board(title, board_id):
     modded_id = data_manager.execute_select(
         """
