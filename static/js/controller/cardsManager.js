@@ -28,6 +28,9 @@ export let cardsManager = {
     const boardId = clickEvent.target.dataset.boardId;
     let cardTitle = document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).value
     dataHandler.createNewCard(cardTitle, boardId)
+        document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
+    document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
+    document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
 
   }
 

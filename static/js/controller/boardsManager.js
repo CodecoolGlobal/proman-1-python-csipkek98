@@ -95,14 +95,17 @@ async function showHideButtonHandler(clickEvent) {
   {
     while (openBoard.hasChildNodes())
     {
+      document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'none'
       openBoard.removeChild(openBoard.lastChild);
     }
   }
   else
   {
+    document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
     await boardsManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
+
 }
 
 function toggleInput(clickEvent) {
