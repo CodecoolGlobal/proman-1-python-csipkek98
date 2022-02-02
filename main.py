@@ -51,11 +51,11 @@ def register():
         user_data = request.form.copy()
         user_manager.register_user(user_data)
         return redirect(url_for('index'))
-    return render_template('user_sign.html')
+    return render_template('register.html')
 
 
 @app.route("/api/register", methods=["GET", "POST"])
-def register_api():
+def get_username_validation():
     is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
     return jsonify(not is_exist)
 
