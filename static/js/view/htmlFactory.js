@@ -1,7 +1,8 @@
 export const htmlTemplates = {
     board: 1,
     card: 2,
-    column: 3
+    column: 3,
+    archive: 4
 }
 
 export function htmlFactory(template) {
@@ -12,6 +13,8 @@ export function htmlFactory(template) {
             return cardBuilder
         case htmlTemplates.column:
             return columnBuilder
+        case htmlTemplates.archive:
+            return modalBuilder
         default:
             console.error("Undefined template: " + template)
             return () => { return "" }
@@ -29,6 +32,7 @@ function boardBuilder(board) {
                     <button class="save-title" data-board-id="${board.id}" hidden>Save</button>                    
                 </div>
                 <div class="board-columns"></div>
+                <div class="board-archive"></div>
             </section>
             </div>`;
 }
@@ -46,6 +50,17 @@ function cardBuilder(card) {
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                 <div class="card-title">${card.title}</div>
             </div>`;
+}
+
+function modalBuilder(archive) {
+    return`<div class="card-modal" data-card-modal-id="${archive.id}">
+                <div class="header-modal">
+                  <p>From ${archive.board}: ${archive.status}</p>
+                </div>
+                 <div class="container-modal">
+                  <p>${archive.title}</p>
+                </div>
+          </div>`
 }
 
 

@@ -2,6 +2,7 @@ import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
+import { archiveManager } from "./archiveManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
@@ -30,6 +31,11 @@ export let boardsManager = {
           `.board-toggle[data-board-remove="${board.id}"]`,
           "click",
           deleteBoard
+      )
+      domManager.addEventListener(
+          "#myBtn",
+          "click",
+          archiveManager.loadModal
       )
     }
   },

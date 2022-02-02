@@ -112,3 +112,12 @@ def delete_board(board_id):
     )
 
 
+def get_archive_data():
+    return data_manager.execute_select(
+        """
+        SELECT  archive.id as id, b.title as board, s.title as status, archive.title as title  FROM archive
+        JOIN boards b on archive.board_id = b.id
+        JOIN statuses s on archive.status_id = s.id
+        """
+    )
+

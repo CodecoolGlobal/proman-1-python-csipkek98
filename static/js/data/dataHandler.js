@@ -41,6 +41,10 @@ export let dataHandler = {
   },
   deleteBoard: async function (statusId){
     await apiDelete(`/api/${statusId}/delete_board/`)
+  },
+  getArchive: async function (){
+    const response = await apiGet("/api/archive")
+    return response
   }
 };
 
@@ -50,6 +54,7 @@ async function apiGet(url) {
   });
   if (response.status === 200) {
     let data = response.json();
+    console.log(data)
     return data;
   }
 }

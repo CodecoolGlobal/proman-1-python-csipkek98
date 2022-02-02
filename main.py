@@ -82,6 +82,13 @@ def delete_board(board_id):
         queires.delete_board(board_id)
 
 
+@app.route("/api/archive")
+@json_response
+def get_archive_data():
+    asd = queires.get_archive_data()
+    return asd
+
+
 def main():
     app.run(debug=True)
 
