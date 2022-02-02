@@ -27,7 +27,7 @@ export let cardsManager = {
   saveCard: function (clickEvent){
     const boardId = clickEvent.target.dataset.boardId;
     let cardTitle = document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).value
-    dataHandler.createNewCard(cardTitle, boardId, 1)
+    dataHandler.createNewCard(cardTitle, boardId)
 
   }
 

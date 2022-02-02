@@ -78,8 +78,7 @@ def create_new_card():
     card = request.get_json()
     card_title = card['cardTitle']
     board_id = card['boardId']
-    status_id = card['statusId']
-    queires.create_card(card_title, board_id, status_id)
+    queires.create_card(card_title, board_id)
     return 'card created'
 
 
