@@ -162,3 +162,21 @@ section.board{
     width: 14px;
     height: 16px;
 }
+.card-archive {
+    display: block;
+    position: relative;
+    width: 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.card-text{
+    margin: 10px;
+}
+.card-icon{
+    float: right;
+    align-self: end;
+    margin-left: auto;
+    height: 12px;
+    width: 17px;
+    cursor: pointer;
+}
