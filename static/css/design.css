@@ -54,10 +54,13 @@ section.board{
     border-radius: 3px;
 }
 
-form {
+.board-header form {
     display: inline-flex;
+    margin-right: auto;
 }
 .board-header{
+    display: flex;
+    justify-content: flex-end;
     height: 50px;
     background: #fff;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
@@ -88,7 +91,7 @@ form {
 }
 
 .board-toggle, .board-add, .save-title, .save-card, .card-title-input{
-    float: right;
+    justify-self: flex-end;
     margin: 13px;
 }
 
