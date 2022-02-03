@@ -5,9 +5,10 @@ import {domManager} from "../view/domManager.js";
 export let statusManager = {
 loadColumns : async function (boardId) {
     const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
+    let logged_in = await dataHandler.is_logged_in();
     for (let status of statuses) {
       const columnBuilder = htmlFactory(htmlTemplates.column);
-      const content = columnBuilder(status);
+      const content = columnBuilder(status, logged_in);
       domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       domManager.addEventListener(
         `.board-column[data-column-id="${status.id}"]`,

@@ -9,9 +9,10 @@ export let boardsManager = {
   loadBoards: async function () {
     document.getElementById("root").innerHTML=""
     const boards = await dataHandler.getBoards();
+    let logged_in = await dataHandler.is_logged_in();
     for (let board of boards) {
       const boardBuilder = htmlFactory(htmlTemplates.board);
-      const content = boardBuilder(board);
+      const content = boardBuilder(board, logged_in);
       domManager.addChild("#root", content);
       domManager.addEventListener(
         `.board-toggle[data-board-id="${board.id}"]`,
@@ -78,19 +79,28 @@ async function deleteBoard(clickEvent){
 async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
   const openBoard = await document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
+  let addBtn = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
   if (openBoard.hasChildNodes())
   {
     while (openBoard.hasChildNodes())
     {
-      document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'none'
-      document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
-      document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
+      if(addBtn){
+        addBtn.style.display = 'none';
+      }
+      if(document.querySelector(`.save-card[data-board-id="${boardId}"]`)){
+        document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
+      }
+      if(document.querySelector(`.card-title-input[data-board-id="${boardId}"]`)){
+        document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
+      }
       openBoard.removeChild(openBoard.lastChild);
     }
   }
   else
   {
-    document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
+    if (addBtn){
+        addBtn.style.display = 'block'
+    }
     await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }

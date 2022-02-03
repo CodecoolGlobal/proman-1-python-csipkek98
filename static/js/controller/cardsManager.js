@@ -6,9 +6,10 @@ import { domManager } from "../view/domManager.js";
 export let cardsManager = {
   loadCards: async function (boardId) {
     const cards = await dataHandler.getCardsByBoardId(boardId);
+    let logged_in = await dataHandler.is_logged_in();
     for (let card of cards) {
       const cardBuilder = htmlFactory(htmlTemplates.card);
-      const content = cardBuilder(card);
+      const content = cardBuilder(card, logged_in);
       domManager.addChild(`.board[data-board-id="${boardId}"] [data-status-id="${card.status_id}"]`, content);
       domManager.addEventListener(
         `.card[data-card-id="${card.id}"]`,

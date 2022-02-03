@@ -38,7 +38,6 @@ def get_boards():
         user_id = user_manager.get_user_by_name_email(session['user'])["id"]
         private_boards = queires.get_private_boards(user_id)
         public_boards.extend(private_boards)
-    print(public_boards)
     return public_boards
 
 
@@ -128,7 +127,7 @@ def delete_board(board_id):
         queires.delete_board(board_id)
 
 
-@app.route("/api/register", methods=["GET", "POST"])
+@app.route("/api/register", methods=["POST"])
 def get_username_validation():
     is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
     return jsonify(not is_exist)
@@ -152,7 +151,7 @@ def get_password_validation():
     return jsonify(is_pswd_correct)
 
 
-@app.route("/logout", methods=["POST"])
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
