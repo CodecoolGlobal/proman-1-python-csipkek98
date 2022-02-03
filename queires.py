@@ -2,11 +2,6 @@ import data_manager
 
 
 def get_card_status(status_id):
-    """
-    Find the first status matching the given id
-    :param status_id:
-    :return: str
-    """
     status = data_manager.execute_select(
         """
         SELECT * FROM statuses s
@@ -19,13 +14,6 @@ def get_card_status(status_id):
 
 
 def get_boards():
-    """
-    Gather all boards
-    :return:
-    """
-    # remove this code once you implement the database
-    # return [{"title": "board1", "id": 1}, {"title": "board2", "id": 2}]
-
     return data_manager.execute_select(
         """
         SELECT * FROM boards
@@ -35,9 +23,6 @@ def get_boards():
 
 
 def get_cards_for_board(board_id):
-    # remove this code once you implement the database
-    # return [{"title": "title1", "id": 1}, {"title": "board2", "id": 2}]
-
     matching_cards = data_manager.execute_select(
         """
         SELECT * FROM cards
@@ -94,10 +79,20 @@ def rename_board(title, board_id):
     return modded_id
 
 
-def delete_card(card_id):
+def delete_card_from_board(card_id):
     data_manager.execute_query(
         """
         DELETE FROM cards
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )
+
+
+def delete_card_from_archive(card_id):
+    data_manager.execute_query(
+        """
+        DELETE FROM archive
         WHERE id = %(card_id)s
         """
         , {"card_id": card_id}
@@ -127,9 +122,30 @@ def delete_board(board_id):
 def get_archive_data():
     return data_manager.execute_select(
         """
-        SELECT  archive.id as id, b.title as board, s.title as status, archive.title as title  FROM archive
+        SELECT archive.id as id, b.title as board, s.title as status, archive.title as title  FROM archive
         JOIN boards b on archive.board_id = b.id
         JOIN statuses s on archive.status_id = s.id
         """
     )
 
+
+def copy_card_from_board_to_archive(card_id):
+    data_manager.execute_query(
+        """
+        INSERT INTO archive
+        SELECT * FROM cards
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )
+
+
+def copy_card_from_archive_to_board(card_id):
+    data_manager.execute_query(
+        """
+        INSERT INTO cards
+        SELECT * FROM archive
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id}
+    )

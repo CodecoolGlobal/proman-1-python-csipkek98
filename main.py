@@ -87,7 +87,7 @@ def create_new_card():
 @json_response
 def delete_card_from_board(card_id):
     if request.method == "DELETE":
-        queires.delete_card(card_id)
+        queires.delete_card_from_board(card_id)
 
 
 @app.route("/api/<status_id>/delete_status/", methods=['DELETE'])
@@ -129,8 +129,23 @@ def get_password_validation():
 @app.route("/api/archive")
 @json_response
 def get_archive_data():
-    asd = queires.get_archive_data()
-    return asd
+    return queires.get_archive_data()
+
+
+@app.route("/api/board/copy_card/<card_id>", methods=['DELETE'])
+@json_response
+def copy_card_from_board(card_id):
+    if request.method == "DELETE":
+        queires.copy_card_from_board_to_archive(card_id)
+        queires.delete_card_from_board(card_id)
+
+
+@app.route("/api/archive/copy_card/<card_id>", methods=['DELETE'])
+@json_response
+def copy_card_from_archive(card_id):
+    if request.method == "DELETE":
+        queires.copy_card_from_archive_to_board(card_id)
+        queires.delete_card_from_archive(card_id)
 
 
 def main():

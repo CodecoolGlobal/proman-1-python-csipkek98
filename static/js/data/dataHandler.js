@@ -48,6 +48,12 @@ export let dataHandler = {
   getArchive: async function (){
     const response = await apiGet("/api/archive")
     return response
+  },
+  copyAndDeleteFromBoard: async function (cardId){
+    await apiDelete(`/api/board/copy_card/${cardId}`)
+  },
+  copyAndDeleteFromArchive: async function (cardId){
+    await apiDelete(`/api/archive/copy_card/${cardId}`)
   }
 };
 

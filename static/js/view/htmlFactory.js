@@ -49,6 +49,7 @@ function columnBuilder(status) {
 
 function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}">
+                <div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                 <div class="card-title">${card.title}</div>
             </div>`;
@@ -57,7 +58,7 @@ function cardBuilder(card) {
 function modalBuilder(archive) {
     return`<div class="card-modal" data-card-modal-id="${archive.id}">
                 <div class="header-modal">
-                  <p>From ${archive.board}: ${archive.status}</p>
+                  <div class="card-text">From: ${archive.board}; ${archive.status}<div class="card-icon" data-id="${archive.id}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div></div>
                 </div>
                  <div class="container-modal">
                   <p>${archive.title}</p>
