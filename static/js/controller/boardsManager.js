@@ -3,7 +3,7 @@ import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { archiveManager } from "./archiveManager.js";
-import { statusManager } from "./statusManager";
+import { statusManager } from "./statusManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {

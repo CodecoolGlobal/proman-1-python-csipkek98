@@ -1,6 +1,6 @@
-import {dataHandler} from "../data/dataHandler";
-import {htmlFactory, htmlTemplates} from "../view/htmlFactory";
-import {domManager} from "../view/domManager";
+import {dataHandler} from "../data/dataHandler.js";
+import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
+import {domManager} from "../view/domManager.js";
 
 export let statusManager = {
 loadColumns : async function (boardId) {
