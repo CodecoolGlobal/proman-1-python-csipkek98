@@ -21,13 +21,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/api/statuses/<board_id>")
+@app.route("/api/statuses/<board_id>/")
 @json_response
 def get_statuses(board_id):
     return queires.get_statuses(board_id)
 
 
-@app.route("/api/boards")
+@app.route("/api/boards/")
 @json_response
 def get_boards():
     """
@@ -36,7 +36,7 @@ def get_boards():
     return queires.get_boards()
 
 
-@app.route("/api/boards/<int:board_id>/rename/<string:new_title>", methods=["GET", "PUT"])
+@app.route("/api/boards/<int:board_id>/rename/<string:new_title>/", methods=["GET", "PUT"])
 @json_response
 def rename_board(new_title: str, board_id: int):
     if request.method == "PUT":
@@ -91,12 +91,21 @@ def delete_card_from_board(card_id):
         queires.delete_card_from_board(card_id)
 
 
-
 @app.route("/api/cards/<int:card_id>/rename/<string:new_title>", methods=["GET", "PUT"])
 @json_response
 def rename_card(new_title: str, card_id: int):
     if request.method == "PUT":
         queires.rename_card(new_title, card_id)
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route("/api/column/<int:column_id>/rename/<string:new_title>/", methods=["GET", "PUT"])
+@json_response
+def rename_column(column_id: int, new_title: str):
+    if request.method == "PUT":
+        print(column_id, new_title)
+        queires.rename_column(new_title, column_id)
     else:
         return redirect(url_for('index'))
 

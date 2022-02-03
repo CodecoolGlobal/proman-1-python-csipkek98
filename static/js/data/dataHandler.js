@@ -42,6 +42,10 @@ export let dataHandler = {
   renameCard: async function (newTitle, cardId) {
       const response = await apiPut()
   },
+  renameColumn: async function (newTitle, columnId){
+    const response = await apiPut(`/api/column/${columnId}/rename/${newTitle}/`)
+    return response
+  },
   deleteStatus: async function (statusId){
     await apiDelete(`/api/${statusId}/delete_status/`)
   },

@@ -16,7 +16,7 @@ loadColumns : async function (boardId) {
           );
       domManager.addEventListener(
         `.board-column[data-column-id="${status.id}"]`,
-        "click",
+        "keydown",
           renameColumn
           );
     }
@@ -33,12 +33,11 @@ loadColumns : async function (boardId) {
     }
 }
 
-function renameColumn(clickEvent){
-    const targetInput = clickEvent.target;
-    const newTitle = document.querySelector()
-    if (targetInput.classList.contains("board-column-title")){
-
-    }
-
-    console.log("title click")
+async function renameColumn(clickEvent){
+  const statusIdd = clickEvent.target.dataset.statusIdd;
+  const newTitle = document.querySelector(`input[data-status-idd="${statusIdd}"]`);
+  if (clickEvent.key === 'Enter'){
+    await dataHandler.renameColumn(newTitle.value, statusIdd);
+    newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+}
 }

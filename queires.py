@@ -95,13 +95,24 @@ def delete_card_from_board(card_id):
 
 
 def rename_card(title, card_id):
-    modded_id = data_manager.execute_select((
+    modded_id = data_manager.execute_query(
         """
         UPDATE cards SET title = %(title)s WHERE cards.id = %(board_id)s RETURNING id;
         """
         , {"card_id": card_id,
            "title": title}
-    ))
+    )
+    return modded_id
+
+
+def rename_column(title: str, status_id):
+    modded_id = data_manager.execute_query(
+        """
+        UPDATE statuses SET title = %(title)s WHERE statuses.id = %(status_id)s RETURNING id;
+        """
+        , {"status_id": status_id,
+           "title": title}
+    )
     return modded_id
 
 
