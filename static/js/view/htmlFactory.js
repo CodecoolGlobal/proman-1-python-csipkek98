@@ -2,7 +2,7 @@ export const htmlTemplates = {
     board: 1,
     card: 2,
     column: 3,
-    archive: 4
+    archive: 4,
 }
 
 export function htmlFactory(template) {
@@ -64,6 +64,4 @@ function modalBuilder(archive) {
                 </div>
           </div>`
 }
-
-
 

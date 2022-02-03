@@ -3,6 +3,7 @@ import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { archiveManager } from "./archiveManager.js";
+import { statusManager } from "./statusManager";
 
 export let boardsManager = {
   loadBoards: async function () {
@@ -47,32 +48,17 @@ export let boardsManager = {
           "click",
           cardsManager.saveCard
       )
+      domManager.addEventListener(
+          `.board[board-columns][data-column-id="${board.id}"]`,
+          "click",
+          renameStatus
+      )
     }
   },
-  loadColumns : async function (boardId) {
-    const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
-    for (let status of statuses) {
-      const columnBuilder = htmlFactory(htmlTemplates.column);
-      const content = columnBuilder(status);
-      domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
-      domManager.addEventListener(
-        `.board-column[data-column-id="${status.id}"]`,
-        "click",
-          deleteColumn
-          );
-    }
-  }
 };
 
 
-async function deleteColumn(clickEvent){
-  let click = clickEvent.target.parentElement
-  if (click.classList.contains("board-column-remove")){
-    let columnId = click.parentElement.getAttribute("data-column-id")
-    await dataHandler.deleteStatus(columnId)
-    click.parentElement.remove()
-    }
-}
+
 
 async function deleteBoard(clickEvent){
   let click = clickEvent.target
@@ -104,7 +90,7 @@ async function showHideButtonHandler(clickEvent) {
   else
   {
     document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
-    await boardsManager.loadColumns(boardId);
+    await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
 
@@ -152,4 +138,8 @@ async function renameBoard(clickEvent) {
   await dataHandler.renameBoard(newTitle.value, boardId)
   newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
   toggleSaveButtonForElement(newTitle)
+}
+
+function renameStatus(){
+console.log("status click")
 }
