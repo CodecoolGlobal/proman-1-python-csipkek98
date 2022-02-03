@@ -91,6 +91,7 @@ section.board{
 }
 
 .board-toggle, .board-add, .save-title, .save-card, .card-title-input{
+
     justify-self: flex-end;
     margin: 13px;
 }

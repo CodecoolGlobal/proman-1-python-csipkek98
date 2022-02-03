@@ -102,6 +102,8 @@ async function showHideButtonHandler(clickEvent) {
     while (openBoard.hasChildNodes())
     {
       document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'none'
+      document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
+      document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
       openBoard.removeChild(openBoard.lastChild);
     }
   }
