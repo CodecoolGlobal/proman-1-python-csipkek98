@@ -33,6 +33,10 @@ DROP TABLE IF EXISTS archive;
 ---
 --- create tables
 ---
+CREATE TABLE board_columns (
+    board_id    INTEGER 	     NOT NULL,
+    status_id   INTEGER	     NOT NULL,
+);
 
 CREATE TABLE statuses (
     id       SERIAL PRIMARY KEY     NOT NULL,
@@ -73,6 +77,16 @@ CREATE TABLE users (
 
 INSERT INTO users VALUES (nextval('users_id_seq'), 'admin', '$2b$12$Rp1a9lkPt5dTtgZTUH4GxOHMJ.3BB5lCg/Ao5C18q/dAsjiJk70uK', '1000-01-01 00:00:00', 'admin@mail.com');
 
+INSERT INTO board_columns VALUES (1, 1);
+INSERT INTO board_columns VALUES (1, 2);
+INSERT INTO board_columns VALUES (1, 3);
+INSERT INTO board_columns VALUES (1, 4);
+INSERT INTO board_columns VALUES (2, 1);
+INSERT INTO board_columns VALUES (2, 2);
+INSERT INTO board_columns VALUES (2, 3);
+INSERT INTO board_columns VALUES (2, 4);
+
+
 INSERT INTO statuses(title) VALUES ('new');
 INSERT INTO statuses(title) VALUES ('in progress');
 INSERT INTO statuses(title) VALUES ('testing');
@@ -109,3 +123,10 @@ ALTER TABLE ONLY cards
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
+    
+ALTER TABLE ONLY board_columns
+    ADD CONSTRAINT fk_board_columns_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY board_columns
+    ADD CONSTRAINT fk_board_columns_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
+    
