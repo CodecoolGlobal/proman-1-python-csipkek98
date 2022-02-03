@@ -57,11 +57,13 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        user_data = request.form.copy()
-        user_manager.register_user(user_data)
-        return redirect(url_for('index'))
-    return render_template('register.html')
+    if not session.get('user'):
+        if request.method == "POST":
+            user_data = request.form.copy()
+            user_manager.register_user(user_data)
+            return redirect(url_for('index'))
+        return render_template('register.html')
+    return redirect(url_for('index'))
 
 
 @app.route("/api/create/board/", methods=["POST"])
@@ -111,12 +113,14 @@ def get_username_validation():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        user_data = request.form.copy()
-        if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
-            session["user"] = user_data["name"]
-            return redirect(url_for('index'))
-    return render_template('login.html')
+    if not session.get('user'):
+        if request.method == "POST":
+            user_data = request.form.copy()
+            if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
+                session["user"] = user_data["name"]
+                return redirect(url_for('index'))
+        return render_template('login.html')
+    return redirect(url_for('index'))
 
 
 @app.route("/api/login", methods=["GET", "POST"])
