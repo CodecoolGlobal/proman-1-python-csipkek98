@@ -22,13 +22,13 @@ export let dataHandler = {
     // the card is retrieved and then the callback function is called with the card
   },
   createNewBoard: async function (boardTitle) {
-    const response = await apiPost("/api/create/board", boardTitle);
+    const response = await apiPost("/api/create/board/", boardTitle);
     return response;
     // creates new board, saves it and calls the callback function with its data
   },
   createNewCard: async function (cardTitle, boardId, statusId) {
     let card = {'cardTitle': cardTitle, 'boardId': boardId, 'statusId': statusId}
-    const response = await apiPost("/api/create/card", card)
+    const response = await apiPost("/api/create/card/", card)
     return response
     // creates new card, saves it and calls the callback function with its data
   },
