@@ -106,19 +106,33 @@ function toggleInput(clickEvent) {
 
 
 // create board
-const newBoardButton = document.getElementById("new-board");
-const newBoardDiv = document.getElementById("new-board-div");
-const cancelNewBoard = document.querySelector("#cancel-create-board");
+async function initCreateBtn(){
+  const newBoardButton = await document.getElementById("new-board");
+  const newBoardDiv = await document.getElementById("new-board-div");
+  const cancelNewBoard = await document.querySelector("#cancel-create-board");
 
-cancelNewBoard.addEventListener("click", function () {
-  newBoardButton.style.display = 'block';
-  newBoardDiv.style.display = "none";
-});
+  if(newBoardButton) {
+    cancelNewBoard.addEventListener("click", function () {
+      newBoardButton.style.display = 'block';
+      newBoardDiv.style.display = "none";
+    });
 
-newBoardButton.addEventListener("click", function (){
-  newBoardButton.style.display='none';
-  newBoardDiv.style.display = "flex";
-})
+    newBoardButton.addEventListener("click", function () {
+      newBoardButton.style.display = 'none';
+      newBoardDiv.style.display = "flex";
+    })
+
+    document.getElementById("save-board").addEventListener("click", async function () {
+      let response = await dataHandler.createNewBoard(await getBoardData());
+      console.log(response);
+      boardsManager.loadBoards();
+      newBoardButton.style.display = 'block';
+      newBoardDiv.style.display = "none";
+    })
+  }
+}
+
+initCreateBtn();
 
 async function getBoardData(){
   let boardData = await new FormData;
@@ -131,15 +145,6 @@ async function getBoardData(){
   }
   return new URLSearchParams(boardData);
 }
-
-document.getElementById("save-board").addEventListener("click", async function (){
-  let response = await dataHandler.createNewBoard(await getBoardData());
-  console.log(response);
-  boardsManager.loadBoards();
-  newBoardButton.style.display='block';
-  newBoardDiv.hidden = true;
-})
-
 
 function toggleSaveButtonForElement(element) {
   const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)

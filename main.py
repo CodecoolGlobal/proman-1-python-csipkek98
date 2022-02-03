@@ -33,7 +33,13 @@ def get_boards():
     """
     All the boards
     """
-    return queires.get_boards()
+    public_boards = queires.get_public_boards()
+    if session.get('user'):
+        user_id = user_manager.get_user_by_name_email(session['user'])["id"]
+        private_boards = queires.get_private_boards(user_id)
+        public_boards.extend(private_boards)
+    print(public_boards)
+    return public_boards
 
 
 @app.route("/api/boards/<int:board_id>/rename/<string:new_title>", methods=["GET", "PUT"])

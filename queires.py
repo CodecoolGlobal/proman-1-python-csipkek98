@@ -183,3 +183,21 @@ def get_board_by_title(title):
         WHERE title = %(title)s;
         """
         , {"title": title}, fetchall=False)
+
+
+def get_public_boards():
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        JOIN user_board ON user_board.board_id = boards.id
+        WHERE user_board.status = 'public';
+        """)
+
+
+def get_private_boards(user_id):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        JOIN user_board ON user_board.board_id = boards.id
+        WHERE user_board.status = 'private' AND user_board.user_id = %(user_id)s;
+        """, {"user_id": user_id})
