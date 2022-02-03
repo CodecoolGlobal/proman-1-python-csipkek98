@@ -1,6 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
+import * as dragAndDrop from "../view/dragAndDrop.js"
 
 export let statusManager = {
 loadColumns : async function (boardId) {
@@ -15,11 +16,38 @@ loadColumns : async function (boardId) {
         "click",
           deleteColumn
           );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragstart",
+          dragAndDrop.handleDragStart
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragend",
+          dragAndDrop.handleDragEnd
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragover",
+          function(event) {
+            event.preventDefault();
+            }
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "drop",
+          dragAndDrop.handleDrop
+          );
       // domManager.addEventListener(
       //   `.board-column[data-column-id="${status.id}"]`,
       //   "click",
       //     renameColumn
       //     );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "keydown",
+          renameColumn
+          );
     }
   }
   }
@@ -34,11 +62,11 @@ loadColumns : async function (boardId) {
     }
 }
 
-// function renameColumn(clickEvent){
-//     const targetInput = clickEvent.target;
-//     if (click.classList.contains("board-column-title")){
-//
-//     }
-//
-//     console.log("title click")
-// }
+async function renameColumn(clickEvent){
+  const statusIdd = clickEvent.target.dataset.statusIdd;
+  const newTitle = document.querySelector(`input[data-status-idd="${statusIdd}"]`);
+  if (clickEvent.key === 'Enter'){
+    await dataHandler.renameColumn(newTitle.value, statusIdd);
+    newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+}
+}

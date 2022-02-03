@@ -49,11 +49,14 @@ function boardBuilder(board, logged_in=false) {
 function columnBuilder(status, logged_in=false) {
     let editPart = ''
     if(logged_in){
-        editPart = `<div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>`
+        editPart = `<div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
+                    <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >`
+    }
+    else {
+        editPart = `<div class="board-column-title">${status.title}`
     }
     return `<div class="board-column" data-column-id="${status.id}">
                 ${editPart}
-                <div class="board-column-title">${status.title}
                 <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
 }
@@ -64,7 +67,7 @@ function cardBuilder(card, logged_in=false) {
         editPart = `<div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>`
     }
-    return `<div class="card" data-card-id="${card.id}">
+    return `<div class="card" draggable="true" data-card-id="${card.id}" data-board-id="${card.board_id}">
                 ${editPart}
                 <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
             </div>`;

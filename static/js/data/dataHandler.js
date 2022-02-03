@@ -42,6 +42,10 @@ export let dataHandler = {
   renameCard: async function (newTitle, cardId) {
       const response = await apiPut()
   },
+  renameColumn: async function (newTitle, columnId){
+    const response = await apiPut(`/api/column/${columnId}/rename/${newTitle}/`)
+    return response
+  },
   deleteStatus: async function (statusId){
     await apiDelete(`/api/${statusId}/delete_status/`)
   },
@@ -60,6 +64,10 @@ export let dataHandler = {
   },
   is_logged_in: async function(){
     return await apiGet("/api/user/is_login")
+  },
+  changeCardColumn: async function (cardId, newColumn){
+    const response = await apiPut(`/api/board/${newColumn}/${cardId}/update_status`)
+    return response
   }
 };
 
@@ -114,3 +122,4 @@ async function apiPut(url) {
     return data;
   }
 }
+
