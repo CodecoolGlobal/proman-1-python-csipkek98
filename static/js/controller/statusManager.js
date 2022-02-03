@@ -14,6 +14,11 @@ loadColumns : async function (boardId) {
         "click",
           deleteColumn
           );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "click",
+          renameColumn
+          );
     }
   }
   }
@@ -26,4 +31,8 @@ loadColumns : async function (boardId) {
     await dataHandler.deleteStatus(columnId)
     click.parentElement.remove()
     }
+}
+
+function renameColumn(clickEvent){
+console.log("title click")
 }
