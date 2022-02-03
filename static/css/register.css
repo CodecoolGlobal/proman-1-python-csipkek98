@@ -22,3 +22,8 @@
     margin: 34px;
     width: auto;
 }
+
+.container-fluid{
+    max-width: 448px;
+    margin: auto;
+}

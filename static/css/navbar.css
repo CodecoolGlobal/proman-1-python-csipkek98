@@ -6,6 +6,7 @@
   top: 0; /* Position the navbar at the top of the page */
   width: 100vw; /* Full width */
   display: flex;
+  flex-flow: row;
   justify-content: flex-start;
 }
 
@@ -23,4 +24,13 @@
 .navbar a:hover {
   background: #ddd;
   color: black;
+}
+
+.username{
+  margin-left: auto;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }

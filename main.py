@@ -125,6 +125,12 @@ def get_password_validation():
     return jsonify(is_pswd_correct)
 
 
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
+
 @app.route("/api/archive")
 @json_response
 def get_archive_data():
