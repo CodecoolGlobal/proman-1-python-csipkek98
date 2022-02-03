@@ -3,6 +3,7 @@ import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { archiveManager } from "./archiveManager.js";
+import { statusManager } from "./statusManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
@@ -53,14 +54,6 @@ export let boardsManager = {
           resetForm
 
       )
-    }
-  },
-  loadColumns : async function (boardId) {
-    const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
-    for (let status of statuses) {
-      const columnBuilder = htmlFactory(htmlTemplates.column);
-      const content = columnBuilder(status);
-      domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       domManager.addEventListener(
         `.board-column[data-column-id="${status.id}"]`,
         "click",
@@ -71,14 +64,7 @@ export let boardsManager = {
 };
 
 
-async function deleteColumn(clickEvent){
-  let click = clickEvent.target.parentElement
-  if (click.classList.contains("board-column-remove")){
-    let columnId = click.parentElement.getAttribute("data-column-id")
-    await dataHandler.deleteStatus(columnId)
-    click.parentElement.remove()
-    }
-}
+
 
 async function deleteBoard(clickEvent){
   let click = clickEvent.target
@@ -110,7 +96,7 @@ async function showHideButtonHandler(clickEvent) {
   else
   {
     document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
-    await boardsManager.loadColumns(boardId);
+    await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
 
