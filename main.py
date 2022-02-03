@@ -70,8 +70,8 @@ def register():
 @app.route("/api/create/board/", methods=["POST"])
 @json_response
 def create_new_board():
-    board_title = request.get_json()
-    queires.create_board(board_title)
+    board_data = request.form
+    queires.create_board(board_data["title"])
     return 'board created'
 
 

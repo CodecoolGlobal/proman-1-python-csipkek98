@@ -120,8 +120,20 @@ newBoardButton.addEventListener("click", function (){
   newBoardDiv.style.display = "flex";
 })
 
+async function getBoardData(){
+  let boardData = await new FormData;
+  boardData.append("title", document.getElementById("board-title").value);
+  if(document.querySelector("#public").checked){
+      boardData.append("status", "public");
+  }
+  else{
+      boardData.append("status", "private");
+  }
+  return new URLSearchParams(boardData);
+}
+
 document.getElementById("save-board").addEventListener("click", async function (){
-  let response = await dataHandler.createNewBoard(document.getElementById("board-title").value);
+  let response = await dataHandler.createNewBoard(await getBoardData());
   console.log(response);
   boardsManager.loadBoards();
   newBoardButton.style.display='block';
