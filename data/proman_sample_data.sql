@@ -70,8 +70,8 @@ CREATE TABLE users (
 );
 
 CREATE TABLE user_board (
-    user_id     INTEGER         NOT NULL,
     board_id    INTEGER         NOT NULL,
+    user_id     INTEGER         NOT NULL,
     status      VARCHAR (200)   NOT NULL
 );
 ---

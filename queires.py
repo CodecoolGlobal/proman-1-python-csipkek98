@@ -165,3 +165,21 @@ def copy_card_from_archive_to_board(card_id):
         """
         , {"card_id": card_id}
     )
+
+
+def connect_board_user(data):
+    data_manager.execute_query(
+        """
+        INSERT INTO user_board
+        VALUES (%(board_id)s, %(user_id)s, %(status)s);
+        """
+        , data)
+
+
+def get_board_by_title(title):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        WHERE title = %(title)s;
+        """
+        , {"title": title}, fetchall=False)
