@@ -1,4 +1,10 @@
 {% extends "user_sign.html" %}
+{% block header %}
+    <div class="navbar">
+        <a href="{{ url_for("index") }}">Home</a>
+        <a href="{{ url_for("register") }}">Register</a>
+    </div>
+{% endblock %}
 {% block title %}
 <div class="container-fluid">
     <h1>

@@ -23,8 +23,9 @@
         <script type="module" src="{{ url_for('static', filename='js/modal.js') }}" defer></script>
     </head>
     <div class="navbar">
-      <a href="#home">Home</a>
-      <a href="#login">Login</a>
+      <a href="{{ url_for("index") }}">Home</a>
+      <a href="{{ url_for("login") }}">Login</a>
+      <a href="{{ url_for("register") }}">Register</a>
       <a id="myBtn"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>
     </div>
     <body>

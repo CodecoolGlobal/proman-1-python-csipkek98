@@ -5,6 +5,8 @@
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100vw; /* Full width */
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* Links inside the navbar */
