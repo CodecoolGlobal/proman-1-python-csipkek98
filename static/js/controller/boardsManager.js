@@ -54,11 +54,6 @@ export let boardsManager = {
           resetForm
 
       )
-      domManager.addEventListener(
-        `.board-column[data-column-id="${status.id}"]`,
-        "click",
-          deleteColumn
-          );
     }
   }
 };
