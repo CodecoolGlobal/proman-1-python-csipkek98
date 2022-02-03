@@ -146,16 +146,21 @@ def login():
     return redirect(url_for('index'))
 
 
-@app.route("/api/login", methods=["GET", "POST"])
+@app.route("/api/login", methods=["POST"])
 def get_password_validation():
     is_pswd_correct = user_manager.validate_password_by_name(request.form["name"], request.form["password"])
     return jsonify(is_pswd_correct)
 
 
-@app.route("/logout", methods=["GET", "POST"])
+@app.route("/logout", methods=["POST"])
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
+
+
+@app.route("/api/user/is_login", methods=["GET"])
+def get_is_logged_in():
+    return jsonify(session.get('user'))
 
 
 @app.route("/api/archive")

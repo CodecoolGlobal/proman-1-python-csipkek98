@@ -21,18 +21,23 @@ export function htmlFactory(template) {
     }
 }
 
-function boardBuilder(board) {
+function boardBuilder(board, logged_in=false) {
+    let editPart = ''
+    if(logged_in){
+        editPart = `<input class="card-title-input" data-board-id="${board.id}" value="Card title" hidden>
+                    <button class="save-title" data-board-id="${board.id}" hidden>Save</button>
+                    <button class="save-card" data-board-id="${board.id}" hidden>Save card</button>
+                    <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>
+                    <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                   `
+    }
     return `<div class="board-container">
             <section class="board" data-board-id=${board.id}>
                 <div class="board-header">
                     <form id="board-title-form" data-board-id="${board.id}">
                     <input class="board-title" value="${board.title}" data-board-id="${board.id}" readonly>
                     </form>
-                    <input class="card-title-input" data-board-id="${board.id}" value="Card title" hidden>
-                    <button class="save-title" data-board-id="${board.id}" hidden>Save</button>
-                    <button class="save-card" data-board-id="${board.id}" hidden>Save card</button>
-                    <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>
-                    <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                    ${editPart}
                     <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down" data-board-id="${board.id}"></i></button>                                     
                 </div>
                 <div class="board-columns"></div>
@@ -41,18 +46,26 @@ function boardBuilder(board) {
             </div>`;
 }
 
-function columnBuilder(status) {
+function columnBuilder(status, logged_in=false) {
+    let editPart = ''
+    if(logged_in){
+        editPart = `<div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>`
+    }
     return `<div class="board-column" data-column-id="${status.id}">
-                <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
+                ${editPart}
                 <div class="board-column-title">${status.title}
                 <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
 }
 
-function cardBuilder(card) {
+function cardBuilder(card, logged_in=false) {
+    let editPart = ''
+    if(logged_in){
+        editPart = `<div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
+                <div class="card-remove"><i class="fas fa-trash-alt"></i></div>`
+    }
     return `<div class="card" data-card-id="${card.id}">
-                <div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
-                <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                ${editPart}
                 <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
             </div>`;
 }

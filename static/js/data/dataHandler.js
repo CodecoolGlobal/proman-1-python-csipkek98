@@ -57,6 +57,9 @@ export let dataHandler = {
   },
   copyAndDeleteFromArchive: async function (cardId){
     await apiDelete(`/api/archive/copy_card/${cardId}`)
+  },
+  is_logged_in: async function(){
+    return await apiGet("/api/user/is_login")
   }
 };
 
