@@ -13,7 +13,7 @@ export let cardsManager = {
       domManager.addEventListener(
         `.card[data-card-id="${card.id}"]`,
         "click",
-        deleteButtonHandler
+        cardButtonsHandler
       );
       domManager.addEventListener(
           `input[data-card-id="${card.id}"]`,
@@ -42,10 +42,14 @@ export let cardsManager = {
 
 };
 
-function deleteButtonHandler(clickEvent) {
+function cardButtonsHandler(clickEvent) {
   let click = clickEvent.target.parentElement
   if(click.classList.contains("card-remove")){
     dataHandler.deleteCard(click.parentElement.getAttribute("data-card-id"))
+    click.parentElement.remove()
+  }
+  if(click.classList.contains("card-archive")){
+    dataHandler.copyAndDeleteFromBoard(click.parentElement.getAttribute("data-card-id"))
     click.parentElement.remove()
   }
 }

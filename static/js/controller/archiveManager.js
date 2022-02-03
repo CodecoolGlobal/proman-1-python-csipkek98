@@ -10,11 +10,21 @@ export let archiveManager = {
       const cardBuilder = htmlFactory(htmlTemplates.archive);
       const content = cardBuilder(archive_card);
       domManager.addChild(`#modal-card-container`, content);
-      // domManager.addEventListener(
-      //   `.card[data-card-id="${card.id}"]`,
-      //   "click",
-      //   deleteButtonHandler
-      // );
+      domManager.addEventListener(
+        `.card-icon[data-id="${archive_card.id}"]`,
+        "click",
+        buttonHandler
+      );
     }
   },
+
 };
+function buttonHandler(clickEvent) {
+  let click = clickEvent.target.parentElement
+  if(click.classList.contains("card-icon")){
+    let cardId = click.getAttribute("data-id")
+    dataHandler.copyAndDeleteFromArchive(cardId)
+    click.parentElement.remove()
+    document.querySelector(`[data-card-modal-id="${cardId}"]`).remove()
+  }
+}

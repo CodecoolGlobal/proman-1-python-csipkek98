@@ -22,12 +22,22 @@
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
         <script type="module" src="{{ url_for('static', filename='js/modal.js') }}" defer></script>
     </head>
+    <body>
+    {% if session["user"] %}
     <div class="navbar">
-      <a href="#home">Home</a>
-      <a href="#login">Login</a>
+      <a href="{{ url_for("index") }}">Home</a>
+      <a href="{{ url_for("logout") }}">Logout</a>
+      <a id="myBtn"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>
+        <div class="username">{{ session["user"] }}</div>
+    </div>
+    {% else %}
+    <div class="navbar">
+      <a href="{{ url_for("index") }}">Home</a>
+      <a href="{{ url_for("login") }}">Login</a>
+      <a href="{{ url_for("register") }}">Register</a>
       <a id="myBtn"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>
     </div>
-    <body>
+    {% endif %}
         <h1>ProMan</h1>
         <button id="new-board" style="margin-left: 70vw">New board</button>
         <div id="new-board-div" style="margin-left: 60vw" hidden>

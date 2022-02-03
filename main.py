@@ -57,11 +57,13 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
-        user_data = request.form.copy()
-        user_manager.register_user(user_data)
-        return redirect(url_for('index'))
-    return render_template('register.html')
+    if not session.get('user'):
+        if request.method == "POST":
+            user_data = request.form.copy()
+            user_manager.register_user(user_data)
+            return redirect(url_for('index'))
+        return render_template('register.html')
+    return redirect(url_for('index'))
 
 
 @app.route("/api/create/board/", methods=["POST"])
@@ -86,7 +88,7 @@ def create_new_card():
 @json_response
 def delete_card_from_board(card_id):
     if request.method == "DELETE":
-        queires.delete_card(card_id)
+        queires.delete_card_from_board(card_id)
 
 
 
@@ -121,12 +123,14 @@ def get_username_validation():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        user_data = request.form.copy()
-        if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
-            session["user"] = user_data["name"]
-            return redirect(url_for('index'))
-    return render_template('login.html')
+    if not session.get('user'):
+        if request.method == "POST":
+            user_data = request.form.copy()
+            if user_manager.validate_password_by_name(user_data["name"], user_data["password"]):
+                session["user"] = user_data["name"]
+                return redirect(url_for('index'))
+        return render_template('login.html')
+    return redirect(url_for('index'))
 
 
 @app.route("/api/login", methods=["GET", "POST"])
@@ -135,11 +139,32 @@ def get_password_validation():
     return jsonify(is_pswd_correct)
 
 
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
+
 @app.route("/api/archive")
 @json_response
 def get_archive_data():
-    asd = queires.get_archive_data()
-    return asd
+    return queires.get_archive_data()
+
+
+@app.route("/api/board/copy_card/<card_id>", methods=['DELETE'])
+@json_response
+def copy_card_from_board(card_id):
+    if request.method == "DELETE":
+        queires.copy_card_from_board_to_archive(card_id)
+        queires.delete_card_from_board(card_id)
+
+
+@app.route("/api/archive/copy_card/<card_id>", methods=['DELETE'])
+@json_response
+def copy_card_from_archive(card_id):
+    if request.method == "DELETE":
+        queires.copy_card_from_archive_to_board(card_id)
+        queires.delete_card_from_archive(card_id)
 
 
 def main():

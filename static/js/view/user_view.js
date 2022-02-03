@@ -10,4 +10,7 @@ export function createAlertBox(message){
 
     let placeHolder = document.querySelector(".warningPlaceholder");
     placeHolder.appendChild(user_warning);
+    setTimeout(function (){
+        user_warning.remove();
+    }, 3000);
 }
