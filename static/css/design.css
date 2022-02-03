@@ -194,3 +194,8 @@ section.board{
     width: 17px;
     cursor: pointer;
 }
+
+.highlight-dropzone{
+    background-color: gray;
+    opacity: 50%;
+}

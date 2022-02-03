@@ -42,7 +42,7 @@ function boardBuilder(board) {
 }
 
 function columnBuilder(status) {
-    return `<div class="board-column" data-column-id="${status.id}">
+    return `<div class="board-column" draggable="true" data-column-id="${status.id}">
                 <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
 <!--                <div class="board-column-title">-->
                 <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
@@ -51,7 +51,7 @@ function columnBuilder(status) {
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}">
+    return `<div class="card" draggable="true" data-card-id="${card.id}" data-board-id="${card.board_id}">
                 <div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
                 <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>

@@ -61,6 +61,10 @@ export let dataHandler = {
   },
   copyAndDeleteFromArchive: async function (cardId){
     await apiDelete(`/api/archive/copy_card/${cardId}`)
+  },
+  changeCardColumn: async function (cardId, newColumn){
+    const response = await apiPut(`/api/board/${newColumn}/${cardId}/update_status`)
+    return response
   }
 };
 
@@ -102,3 +106,4 @@ async function apiPut(url) {
     return data;
   }
 }
+

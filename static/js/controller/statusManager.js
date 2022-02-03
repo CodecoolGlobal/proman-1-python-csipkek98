@@ -1,6 +1,7 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
+import * as dragAndDrop from "../view/dragAndDrop.js"
 
 export let statusManager = {
 loadColumns : async function (boardId) {
@@ -14,6 +15,33 @@ loadColumns : async function (boardId) {
         "click",
           deleteColumn
           );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragstart",
+          dragAndDrop.handleDragStart
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragend",
+          dragAndDrop.handleDragEnd
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "dragover",
+          function(event) {
+            event.preventDefault();
+            }
+          );
+      domManager.addEventListener(
+        `.board-column[data-column-id="${status.id}"]`,
+        "drop",
+          dragAndDrop.handleDrop
+          );
+      // domManager.addEventListener(
+      //   `.board-column[data-column-id="${status.id}"]`,
+      //   "click",
+      //     renameColumn
+      //     );
       domManager.addEventListener(
         `.board-column[data-column-id="${status.id}"]`,
         "keydown",

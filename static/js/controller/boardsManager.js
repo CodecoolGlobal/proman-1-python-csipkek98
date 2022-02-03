@@ -4,6 +4,8 @@ import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { archiveManager } from "./archiveManager.js";
 import { statusManager } from "./statusManager.js";
+import * as dragAndDrop from "../view/dragAndDrop.js"
+
 
 export let boardsManager = {
   loadBoards: async function () {

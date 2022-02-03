@@ -176,3 +176,14 @@ def copy_card_from_archive_to_board(card_id):
         """
         , {"card_id": card_id}
     )
+
+
+def change_card_row(card_id, status_id):
+    data_manager.execute_query(
+        """
+        UPDATE cards
+        SET status_id = %(status_id)s
+        WHERE id = %(card_id)s
+        """
+        , {"card_id": card_id, "status_id": status_id}
+    )

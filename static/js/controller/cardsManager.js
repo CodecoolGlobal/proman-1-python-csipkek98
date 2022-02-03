@@ -1,7 +1,7 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
-
+import * as dragAndDrop from "../view/dragAndDrop.js"
 
 export let cardsManager = {
   loadCards: async function (boardId) {
@@ -19,6 +19,16 @@ export let cardsManager = {
           `input[data-card-id="${card.id}"]`,
           "click",
           toggleInput
+      )
+      domManager.addEventListener(
+          `.card[data-card-id="${card.id}"]`,
+          "dragstart",
+          dragAndDrop.handleDragStart
+      )
+      domManager.addEventListener(
+          `.card[data-card-id="${card.id}"]`,
+          "dragend",
+          dragAndDrop.handleDragEnd
       )
     }
   },
