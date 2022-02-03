@@ -73,10 +73,11 @@ def create_new_board():
     board_data = request.form
     queires.create_board(board_data["title"])
     user_bard_data = {
-        "board_id": queires.get_board_by_title(board_data["title"]),
+        "board_id": queires.get_board_by_title(board_data["title"])["id"],
         "user_id": user_manager.get_user_by_name_email(session["user"])["id"],
         "status": board_data["status"]
     }
+    queires.connect_board_user(user_bard_data)
     return 'board created'
 
 
