@@ -39,6 +39,9 @@ export let dataHandler = {
   deleteCard: async function (cardId){
     await apiDelete(`/api/${cardId}/delete_card/`)
   },
+  renameCard: async function (newTitle, cardId) {
+      const response = await apiPut()
+  },
   deleteStatus: async function (statusId){
     await apiDelete(`/api/${statusId}/delete_status/`)
   },

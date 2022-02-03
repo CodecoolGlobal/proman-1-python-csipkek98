@@ -2,7 +2,7 @@ export const htmlTemplates = {
     board: 1,
     card: 2,
     column: 3,
-    archive: 4
+    archive: 4,
 }
 
 export function htmlFactory(template) {
@@ -25,13 +25,15 @@ function boardBuilder(board) {
     return `<div class="board-container">
             <section class="board" data-board-id=${board.id}>
                 <div class="board-header">
+                    <form id="board-title-form" data-board-id="${board.id}">
                     <input class="board-title" value="${board.title}" data-board-id="${board.id}" readonly>
-                    <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down" data-board-id="${board.id}"></i></button>
-                    <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                    </form>
                     <input class="card-title-input" data-board-id="${board.id}" value="Card title" hidden>
+                    <button class="save-title" data-board-id="${board.id}" hidden>Save</button>
                     <button class="save-card" data-board-id="${board.id}" hidden>Save card</button>
                     <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>
-                    <button class="save-title" data-board-id="${board.id}" hidden>Save</button>                                        
+                    <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                    <button class="board-toggle" data-board-id="${board.id}"><i class="fas fa-chevron-down" data-board-id="${board.id}"></i></button>                                     
                 </div>
                 <div class="board-columns"></div>
                 <div class="board-archive"></div>
@@ -50,7 +52,7 @@ function columnBuilder(status) {
 function cardBuilder(card) {
     return `<div class="card" data-card-id="${card.id}">
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
-                <div class="card-title">${card.title}</div>
+                <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
             </div>`;
 }
 
@@ -64,6 +66,4 @@ function modalBuilder(archive) {
                 </div>
           </div>`
 }
-
-
 

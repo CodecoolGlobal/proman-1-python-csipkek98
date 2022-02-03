@@ -3,6 +3,7 @@ import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import { cardsManager } from "./cardsManager.js";
 import { archiveManager } from "./archiveManager.js";
+import { statusManager } from "./statusManager.js";
 
 export let boardsManager = {
   loadBoards: async function () {
@@ -47,32 +48,18 @@ export let boardsManager = {
           "click",
           cardsManager.saveCard
       )
-    }
-  },
-  loadColumns : async function (boardId) {
-    const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
-    for (let status of statuses) {
-      const columnBuilder = htmlFactory(htmlTemplates.column);
-      const content = columnBuilder(status);
-      domManager.addChild(`.board[data-board-id="${boardId}"] .board-columns`, content);
       domManager.addEventListener(
-        `.board-column[data-column-id="${status.id}"]`,
-        "click",
-          deleteColumn
-          );
+          `form[data-board-id="${board.id}"]`,
+          "focusout",
+          resetForm
+
+      )
     }
   }
 };
 
 
-async function deleteColumn(clickEvent){
-  let click = clickEvent.target.parentElement
-  if (click.classList.contains("board-column-remove")){
-    let columnId = click.parentElement.getAttribute("data-column-id")
-    await dataHandler.deleteStatus(columnId)
-    click.parentElement.remove()
-    }
-}
+
 
 async function deleteBoard(clickEvent){
   let click = clickEvent.target
@@ -96,13 +83,15 @@ async function showHideButtonHandler(clickEvent) {
     while (openBoard.hasChildNodes())
     {
       document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'none'
+      document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
+      document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
       openBoard.removeChild(openBoard.lastChild);
     }
   }
   else
   {
     document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
-    await boardsManager.loadColumns(boardId);
+    await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
 
@@ -150,4 +139,11 @@ async function renameBoard(clickEvent) {
   await dataHandler.renameBoard(newTitle.value, boardId)
   newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
   toggleSaveButtonForElement(newTitle)
+}
+
+function resetForm() {
+  let allForms = document.querySelectorAll("form");
+  for (let form of allForms) {
+    form.reset()
+  }
 }
