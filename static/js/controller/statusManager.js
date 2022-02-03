@@ -34,5 +34,10 @@ loadColumns : async function (boardId) {
 }
 
 function renameColumn(clickEvent){
-console.log("title click")
+    const targetInput = clickEvent.target;
+    if (click.classList.contains("board-column-title")){
+
+    }
+
+    console.log("title click")
 }
