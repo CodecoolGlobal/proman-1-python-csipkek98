@@ -64,11 +64,14 @@ function columnBuilder(status, logged_in=false) {
 function cardBuilder(card, logged_in=false) {
     let editPart = ''
     if(logged_in){
-        editPart = `<div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
+        editPart = `<div class="card" draggable="true" data-card-id="${card.id}" data-board-id="${card.board_id}">
+                <div class ="card-archive"><i class="fas fa-archive" aria-hidden="true"></i></div>
                 <div class="card-remove"><i class="fas fa-trash-alt"></i></div>`
     }
-    return `<div class="card" draggable="true" data-card-id="${card.id}" data-board-id="${card.board_id}">
-                ${editPart}
+    else {
+        editPart = `<div class="card" draggable="false" data-card-id="${card.id}" data-board-id="${card.board_id}">`
+    }
+    return `${editPart}
                 <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
             </div>`;
 }
