@@ -166,6 +166,14 @@ def copy_card_from_archive(card_id):
         queires.delete_card_from_archive(card_id)
 
 
+@app.route("/api/board/<new_column>/<card_id>/update_status", methods=['PUT'])
+@json_response
+def update_card_status(card_id, new_column):
+    if request.method == "PUT":
+        queires.change_card_row(card_id, new_column)
+        return "Update Done!"
+
+
 def main():
     app.run(debug=True)
 

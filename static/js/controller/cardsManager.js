@@ -23,7 +23,12 @@ export let cardsManager = {
       domManager.addEventListener(
           `.card[data-card-id="${card.id}"]`,
           "dragstart",
-          dragAndDrop.check
+          dragAndDrop.handleDragStart
+      )
+      domManager.addEventListener(
+          `.card[data-card-id="${card.id}"]`,
+          "dragend",
+          dragAndDrop.handleDragEnd
       )
     }
   },
