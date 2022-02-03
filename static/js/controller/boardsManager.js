@@ -47,6 +47,12 @@ export let boardsManager = {
           "click",
           cardsManager.saveCard
       )
+      domManager.addEventListener(
+          `form[data-board-id="${board.id}"]`,
+          "focusout",
+          resetForm
+
+      )
     }
   },
   loadColumns : async function (boardId) {
@@ -152,4 +158,11 @@ async function renameBoard(clickEvent) {
   await dataHandler.renameBoard(newTitle.value, boardId)
   newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
   toggleSaveButtonForElement(newTitle)
+}
+
+function resetForm() {
+  let allForms = document.querySelectorAll("form");
+  for (let form of allForms) {
+    form.reset()
+  }
 }
