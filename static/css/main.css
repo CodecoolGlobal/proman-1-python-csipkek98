@@ -28,3 +28,40 @@
   background-color: grey;
   padding: 2px 16px;
 }
+
+#new-board-div{
+  flex-flow: row;
+  justify-content: flex-end;
+}
+
+.create-board{
+  margin: auto;
+  display: flex;
+  max-width: 960px;
+  flex-flow: row;
+  justify-content: flex-end;
+}
+
+.option{
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 0 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
+  border: 2px solid lightgrey;
+  transition: all 0.3s ease;
+}
+input[type="radio"]{
+  display: none;
+}
+#public:checked ~ .public,
+#private:checked ~ .private{
+  border-color: #0069d9;
+  background: #0069d9;
+  color: #fff;
+}

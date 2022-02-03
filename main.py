@@ -61,6 +61,7 @@ def register():
         if request.method == "POST":
             user_data = request.form.copy()
             user_manager.register_user(user_data)
+            session['user'] = user_data['name']
             return redirect(url_for('index'))
         return render_template('register.html')
     return redirect(url_for('index'))

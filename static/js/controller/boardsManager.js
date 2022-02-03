@@ -106,13 +106,18 @@ function toggleInput(clickEvent) {
 
 
 // create board
-const newBoardButton = document.getElementById("new-board")
-const newBoardDiv = document.getElementById("new-board-div")
+const newBoardButton = document.getElementById("new-board");
+const newBoardDiv = document.getElementById("new-board-div");
+const cancelNewBoard = document.querySelector("#cancel-create-board");
 
+cancelNewBoard.addEventListener("click", function () {
+  newBoardButton.style.display = 'block';
+  newBoardDiv.style.display = "none";
+});
 
 newBoardButton.addEventListener("click", function (){
   newBoardButton.style.display='none';
-  newBoardDiv.hidden = false;
+  newBoardDiv.style.display = "flex";
 })
 
 document.getElementById("save-board").addEventListener("click", async function (){
