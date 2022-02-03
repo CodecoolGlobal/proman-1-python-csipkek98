@@ -14,11 +14,11 @@ loadColumns : async function (boardId) {
         "click",
           deleteColumn
           );
-      domManager.addEventListener(
-        `.board-column[data-column-id="${status.id}"]`,
-        "click",
-          renameColumn
-          );
+      // domManager.addEventListener(
+      //   `.board-column[data-column-id="${status.id}"]`,
+      //   "click",
+      //     renameColumn
+      //     );
     }
   }
   }
@@ -33,11 +33,11 @@ loadColumns : async function (boardId) {
     }
 }
 
-function renameColumn(clickEvent){
-    const targetInput = clickEvent.target;
-    if (click.classList.contains("board-column-title")){
-
-    }
-
-    console.log("title click")
-}
+// function renameColumn(clickEvent){
+//     const targetInput = clickEvent.target;
+//     if (click.classList.contains("board-column-title")){
+//
+//     }
+//
+//     console.log("title click")
+// }
