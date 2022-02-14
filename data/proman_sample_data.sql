@@ -17,6 +17,8 @@ SET default_with_oids = false;
 --- drop constraints
 ---
 
+ALTER TABLE IF EXISTS ONLY public.board_columns DROP CONSTRAINT IF EXISTS fk_board_columns_board_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.board_columns DROP CONSTRAINT IF EXISTS fk_board_columns_board_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.cards DROP CONSTRAINT IF EXISTS fk_cards_board_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.cards DROP CONSTRAINT IF EXISTS fk_cards_status_id CASCADE;
 
@@ -24,6 +26,7 @@ ALTER TABLE IF EXISTS ONLY public.cards DROP CONSTRAINT IF EXISTS fk_cards_statu
 --- drop tables
 ---
 
+DROP TABLE IF EXISTS board_columns CASCADE;
 DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS cards CASCADE;
@@ -34,9 +37,10 @@ DROP TABLE IF EXISTS archive;
 ---
 --- create tables
 ---
+
 CREATE TABLE board_columns (
     board_id    INTEGER 	     NOT NULL,
-    status_id   INTEGER	     NOT NULL,
+    status_id   INTEGER	     NOT NULL
 );
 
 CREATE TABLE statuses (
