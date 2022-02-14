@@ -54,7 +54,6 @@ export let boardsManager = {
           `form[data-board-id="${board.id}"]`,
           "focusout",
           resetForm
-
       )
     }
   }
