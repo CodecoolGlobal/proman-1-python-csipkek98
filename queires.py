@@ -57,24 +57,32 @@ def create_board(board_title):
 
 
 def create_default_statuses(board_id):
-    # data_manager.execute_insert(
-    #     """
-    #     INSERT INTO statuses(title)
-    #     VALUES ('new'),
-    #     ('in progress'),
-    #     ('testing'),
-    #     ('done')
-    #     """
-    # )
     data_manager.execute_insert(
-        """
+        """WITH new_columns as (
+        INSERT INTO statuses(title)
+        VALUES ('new'),
+        ('in progress'),
+        ('testing'),
+        ('done')
+        RETURNING id, title
+        )
         INSERT INTO cards(board_id, status_id, title, card_order) 
-        VALUES (%(board_id)s, 1, 'new card', 1),
-        (%(board_id)s, 2, 'new card', 1),
-        (%(board_id)s, 3, 'new card', 1),
-        (%(board_id)s, 4, 'new card', 1)""",
+        VALUES (%(board_id)s, (select id from new_columns where new_columns.title='new'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='in progress'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='testing'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='done'), 'new card', 1)
+        """,
         {"board_id": board_id}
     )
+    # data_manager.execute_insert(
+    #     """
+    #     INSERT INTO cards(board_id, status_id, title, card_order)
+    #     VALUES (%(board_id)s, 1, 'new card', 1),
+    #     (%(board_id)s, 2, 'new card', 1),
+    #     (%(board_id)s, 3, 'new card', 1),
+    #     (%(board_id)s, 4, 'new card', 1)""",
+    #     {"board_id": board_id}
+    # )
 
 
 def create_card(card_title, board_id):
