@@ -46,17 +46,21 @@ function boardBuilder(board, logged_in=false) {
             </div>`;
 }
 
+
 function columnBuilder(status, logged_in=false) {
     let editPart = ''
     if(logged_in){
         editPart = `<div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
-                    <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >`
+                    <form id="board-column-form">
+                      <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
+                    </form>`
     }
     else {
         editPart = `<div class="board-column-title">${status.title}`
     }
     return `<div class="board-column" data-column-id="${status.id}">
-                ${editPart}
+              <div class="board-column-header">
+                ${editPart}</div>
                 <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
 }
@@ -72,7 +76,9 @@ function cardBuilder(card, logged_in=false) {
         editPart = `<div class="card" draggable="false" data-card-id="${card.id}" data-board-id="${card.board_id}">`
     }
     return `${editPart}
-                <div class="card-title"><input data-card-id="${card.id}" value="${card.title}" readonly></div>
+                <div class="card-title">
+                <form id="card-title-form"><input data-card-id="${card.id}" value="${card.title}" readonly>
+                </form></div>
             </div>`;
 }
 

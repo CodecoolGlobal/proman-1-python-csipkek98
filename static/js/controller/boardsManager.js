@@ -94,6 +94,7 @@ async function deleteBoard(clickEvent){
 
 async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
+  const boardHeader = document.querySelector(`.board[data-board-id="${boardId}"] .board-header`);
   const openBoard = await document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
   let addBtn = document.querySelector(`.board-add[data-board-id="${boardId}"]`);
   if (openBoard.hasChildNodes())
@@ -119,6 +120,8 @@ async function showHideButtonHandler(clickEvent) {
     }
     await loadTableData(boardId)
   }
+  boardHeader.classList.toggle("open");
+  openBoard.classList.toggle("open");
 }
 
 export async function loadTableData(boardId){

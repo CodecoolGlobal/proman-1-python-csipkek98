@@ -1,14 +1,16 @@
     :root{
-    --border-radius: 3px;
+    --border-radius: 5px;
     --status-1: #590000;
     --status-2: #594300;
     --status-3: #525900;
     --status-4: #085900;
+    --background: black;
+    --card: rgb(32, 42, 53);
 }
 
 body{
     min-width: 620px;
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/45degree_fabric.png);
     font-family: sans-serif;
 }
 
@@ -30,6 +32,7 @@ button{
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
+    border-radius: var(--border-radius)
 }
 
 .board-container{
