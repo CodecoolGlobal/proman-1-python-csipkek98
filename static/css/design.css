@@ -81,6 +81,7 @@ section.board{
     display: flex;
     justify-content: flex-end;
     height: 50px;
+    gap: 0.3em;
     background: var(--header);
     border: var(--border) 1px solid;
     border-radius: var(--border-radius);
@@ -93,12 +94,22 @@ section.board{
 .board-header input,
 .board-column-header input,
 .card-title input{
+    font-weight: 1000;
     width: auto;
     user-select: none;
     border: none;
     outline: none;
     background: none;
     cursor: default;
+}
+
+.board-header input:hover,
+.board-column-header input:hover,
+.card-title input:hover,
+.fa-trash-alt:hover,
+.fa-archive:hover{
+    color: floralwhite;
+    transition: color 0.3s ease-in-out;
 }
 
 .board-column-header input {
@@ -116,16 +127,14 @@ section.board{
     margin: 13px;
     display: inline-block;
     font-size: 20px;
-    color: floralwhite;
+    color: var(--border);
 }
 .board-title, .board-add, .board-toggle{
     display: inline-block;
 }
 
 .board-toggle, .board-add, .save-title, .save-card, .card-title-input{
-
-    justify-self: flex-end;
-    margin: 13px;
+    margin: 0.5em 0;
 }
 
 .board-toggle.close{
