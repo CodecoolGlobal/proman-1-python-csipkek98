@@ -51,12 +51,12 @@ export let boardsManager = {
           "click",
           cardsManager.saveCard
       )
-      domManager.addEventListener(
-          `form[data-board-id="${board.id}"]`,
-          "focusout",
-          resetForm
-
-      )
+      // domManager.addEventListener(
+      //     `form[data-board-id="${board.id}"]`,
+      //     "focusout",
+      //     resetForm
+      //
+      // )
     }
   }
 };

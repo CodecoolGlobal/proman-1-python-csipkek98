@@ -35,8 +35,8 @@ DROP TABLE IF EXISTS archive;
 --- create tables
 ---
 CREATE TABLE board_columns (
-    board_id    INTEGER 	     NOT NULL,
-    status_id   INTEGER	     NOT NULL,
+    board_id    INTEGER 	 NOT NULL,
+    status_id   INTEGER	     NOT NULL
 );
 
 CREATE TABLE statuses (
@@ -133,19 +133,16 @@ ALTER TABLE ONLY cards
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
-<<<<<<< HEAD
 
 ALTER TABLE ONLY user_board
     ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY user_board
     ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
-=======
     
 ALTER TABLE ONLY board_columns
     ADD CONSTRAINT fk_board_columns_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY board_columns
     ADD CONSTRAINT fk_board_columns_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
-    
->>>>>>> 357e6fcda7e484bc2fbccb963a47493cc38b003d
+
