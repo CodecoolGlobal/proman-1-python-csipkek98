@@ -97,6 +97,16 @@ def create_new_card():
     return 'card created'
 
 
+@app.route("/api/create/status", methods=["POST"])
+@json_response
+def create_status():
+    status_data = request.get_json()
+    status_title = status_data['title']
+    board_id = status_data['board_id']
+    queires.create_status(status_title, board_id)
+    return 'status created'
+
+
 @app.route("/api/<card_id>/delete_card/", methods=['DELETE'])
 @json_response
 def delete_card_from_board(card_id):

@@ -48,6 +48,11 @@ loadColumns : async function (boardId) {
         "keydown",
           renameColumn
           );
+      domManager.addEventListener(
+          `none`,
+          'click',
+          createColumn
+      )
     }
   }
   }
@@ -69,4 +74,10 @@ async function renameColumn(clickEvent){
     await dataHandler.renameColumn(newTitle.value, statusIdd);
     newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
 }
+}
+
+async function createColumn(clickEvent){
+    const statusName = 1
+    const boardID = 1
+    await dataHandler.createStatus(statusName, boardID)
 }
