@@ -142,7 +142,7 @@ section.board{
 .board-column {
     margin: 0.5em 0 0.5em 0;
     padding: 10px;
-    color: floralwhite;
+    color: darkgray;
     min-width: 0;
     background: black;
     border-radius: var(--border-radius);
@@ -169,14 +169,14 @@ section.board{
 }*/
 
 .board-column-title{
-    color: floralwhite;
+    color: darkgray;
     font-weight: 1000;
 }
 
 .card{
     position: relative;
     background: #222;
-    color: #fff;
+    color: darkgray;
     border-radius: var(--border-radius);
     border: var(--border) 1px solid;
     margin: 4px 0;
