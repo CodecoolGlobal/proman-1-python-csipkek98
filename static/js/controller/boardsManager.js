@@ -78,6 +78,7 @@ async function deleteBoard(clickEvent){
 
 async function showHideButtonHandler(clickEvent) {
   const boardId = clickEvent.target.dataset.boardId;
+  const boardHeader = document.querySelector(`.board[data-board-id="${boardId}"] .board-header`);
   const openBoard = await document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`);
   if (openBoard.hasChildNodes())
   {
@@ -95,7 +96,7 @@ async function showHideButtonHandler(clickEvent) {
     await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
   }
-
+  boardHeader.classList.toggle("open");
 }
 
 function toggleInput(clickEvent) {

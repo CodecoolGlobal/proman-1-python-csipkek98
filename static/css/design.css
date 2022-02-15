@@ -37,6 +37,7 @@ button{
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
+    border-radius: var(--border-radius);
 }
 
 button:hover{
@@ -68,6 +69,10 @@ section.board{
     height: 50px;
     background: var(--header);
     border: var(--border) 1px solid;
+    border-radius: var(--border-radius);
+}
+
+.board-header.open {
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
