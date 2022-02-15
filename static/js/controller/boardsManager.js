@@ -97,6 +97,7 @@ async function showHideButtonHandler(clickEvent) {
     await cardsManager.loadCards(boardId);
   }
   boardHeader.classList.toggle("open");
+  openBoard.classList.toggle("open");
 }
 
 function toggleInput(clickEvent) {

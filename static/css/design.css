@@ -8,17 +8,22 @@
     --card: rgb(42, 46, 51);
     --header: rgb(32, 42, 53);
     --border: #7c7c7c;
+    --card-font: #378eff;
 }
 
+#new-board {
+    width: 150px;
+    margin-left: 16vw;
+}
+
+#new-board-div {
+    margin-left: 16vw;
+}
 body{
     margin-top: 100px;
     min-width: 620px;
     background: var(--background);
     font-family: sans-serif;
-}
-
-h1, .board-title, .board-column-title{
-    font-weight: 100;
 }
 
 h1{
@@ -92,8 +97,9 @@ section.board{
 }
 
 .card-title input{
+    margin-top: 0.5em;
     width: 100%;
-    color: white;
+    color: var(--card-font);
 }
 
 
@@ -121,9 +127,13 @@ section.board{
 
 .board-columns{
     display: flex;
-    border: var(--border) 1px solid;
     flex-basis: auto;
     justify-content: space-evenly;
+}
+
+.board-columns.open {
+    border: var(--border) 1px solid;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .board-column {
