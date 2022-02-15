@@ -27,8 +27,11 @@ function boardBuilder(board, logged_in=false) {
         editPart = `<input class="card-title-input" data-board-id="${board.id}" value="Card title" hidden>
                     <button class="save-title" data-board-id="${board.id}" hidden>Save</button>
                     <button class="save-card" data-board-id="${board.id}" hidden>Save card</button>
-                    <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>
+                    <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>                    
                     <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
+                    
+                    <input class="status-title-input" data-board-id="${board.id}" value="Status title">
+                    <button class="status-add" data-board-id="${board.id}">add column</button>
                    `
     }
     return `<div class="board-container">

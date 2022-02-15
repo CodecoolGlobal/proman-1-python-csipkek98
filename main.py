@@ -101,8 +101,10 @@ def create_new_card():
 @json_response
 def create_status():
     status_data = request.get_json()
-    status_title = status_data['title']
-    board_id = status_data['board_id']
+    print(status_data)
+    status_title = status_data['statusTitle']
+    board_id = status_data['boardId']
+    print(board_id)
     queires.create_status(status_title, board_id)
     return 'status created'
 

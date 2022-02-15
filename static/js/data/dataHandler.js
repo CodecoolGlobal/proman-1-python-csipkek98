@@ -69,8 +69,9 @@ export let dataHandler = {
     const response = await apiPut(`/api/board/${newColumn}/${cardId}/update_status`)
     return response
   },
-  createStatus: async function(statusData){
-    const response =  await apiPost("/api/create/status", statusData)
+  createStatus: async function(statusTitle, boardId){
+    let status = {'statusTitle': statusTitle, 'boardId': boardId}
+    const response =  await apiPost("/api/create/status", status)
     return response
   }};
 

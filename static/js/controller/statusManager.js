@@ -1,7 +1,8 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-import * as dragAndDrop from "../view/dragAndDrop.js"
+import * as dragAndDrop from "../view/dragAndDrop.js";
+import {reloadBoardData} from "../view/boardRefresh.js";
 
 export let statusManager = {
 loadColumns : async function (boardId) {
@@ -49,7 +50,7 @@ loadColumns : async function (boardId) {
           renameColumn
           );
       domManager.addEventListener(
-          `none`,
+          `.status-add[data-board-id="${boardId}"]`,
           'click',
           createColumn
       )
@@ -77,7 +78,8 @@ async function renameColumn(clickEvent){
 }
 
 async function createColumn(clickEvent){
-    const statusName = 1
-    const boardID = 1
-    await dataHandler.createStatus(statusName, boardID)
+    const boardId = clickEvent.currentTarget.getAttribute("data-board-id")
+    const statusName = clickEvent.currentTarget.parentElement.querySelector(".status-title-input").value
+    await dataHandler.createStatus(statusName, boardId)
+    reloadBoardData(boardId)
 }

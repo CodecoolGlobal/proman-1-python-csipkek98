@@ -144,7 +144,7 @@ def create_status(column_title, board_id):
     RETURNING id)
     INSERT INTO cards(board_id, status_id, title, card_order) 
     VALUES (%(board_id)s, (select id FROM new_column), 'new card', 1)""",
-    {"column_title": column_title}, {"board_id": board_id})
+    {"column_title": column_title, "board_id": board_id})
 
 
 def delete_card_from_archive(card_id):
