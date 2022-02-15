@@ -32,7 +32,6 @@ export function handleDragStart(e){
     const element = e.currentTarget
     e.stopPropagation()
     if(element.classList.contains("card")){
-        console.log(element.parentElement)
         proMan.draggedColumn = element.parentElement.getAttribute("data-status-id")
         const currentBoardId = e.currentTarget.dataset.boardId
         initElements(currentBoardId)
@@ -67,14 +66,17 @@ export function handleDrop(e){
     if (dropzone.classList.contains("card")){
         dropzone = e.currentTarget.parentElement
     }
-    const dropPlace = dropzone.querySelector(".board-column-content")
-    dropPlace.appendChild(proMan.dragged)
-    const DropZoneColumnId = dropzone.getAttribute("data-column-id")
-    if(proMan.draggedColumn !== DropZoneColumnId){
-        const cardId = proMan.dragged.getAttribute("data-card-id")
-        const newColumnId = DropZoneColumnId
-        dataHandler.changeCardColumn(cardId, newColumnId)
+    const draggedInBoardId = dropzone.closest(".board").getAttribute("data-board-id")
+    if(draggedInBoardId === proMan.dragged.getAttribute("data-board-id")){
+        const dropPlace = dropzone.querySelector(".board-column-content")
+        dropPlace.appendChild(proMan.dragged)
+        const DropZoneColumnId = dropzone.getAttribute("data-column-id")
+        if(proMan.draggedColumn !== DropZoneColumnId){
+            const cardId = proMan.dragged.getAttribute("data-card-id")
+            const newColumnId = DropZoneColumnId
+            dataHandler.changeCardColumn(cardId, newColumnId)
         }
+    }
 }
 
 function HighlightDropZones(elementType){
