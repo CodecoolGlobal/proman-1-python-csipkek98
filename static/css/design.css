@@ -36,9 +36,9 @@ h1{
 }
 
 button{
-    background: #222;
+    background: var(--background);
     color: floralwhite;
-    border: var(--border) 1px inset;
+    border: var(--border) 2px outset;
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
@@ -137,28 +137,33 @@ section.board{
 }
 
 .board-column {
+    margin: 0.5em 0 0.5em 0;
     padding: 10px;
     color: floralwhite;
     min-width: 0;
+    background: black;
+    border-radius: var(--border-radius);
+    border: var(--border) 1px solid;
 }
 
 
 .board-column-header {
     justify-content: flex-end;
     display: flex;
+    margin-bottom: 1em;
 }
 
 .board-column-content{
     min-height: 49px;
 }
 
-.board-column-content:empty{
-    /*This only works if the tag is really empty and there is not even whitespace inside*/
+/*.board-column-content:empty{
+    !*This only works if the tag is really empty and there is not even whitespace inside*!
     border: 4px solid #cdcdcd;
     margin-top: 4px;
     border-radius: 10px;
     background: #eee;
-}
+}*/
 
 .board-column-title{
     color: floralwhite;
