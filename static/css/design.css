@@ -4,7 +4,7 @@
     --status-2: #ffa530;
     --status-3: #95a950;
     --status-4: #89f57b;
-    --background: black;
+    --background: #1f1f1f;
     --card: rgb(42, 46, 51);
     --header: rgb(32, 42, 53);
     --border: #7c7c7c;
@@ -54,7 +54,7 @@ button:active{
 
 section.board{
     margin: 20px;
-    background: var(--card);
+    background: var(--background);
     border-radius: var(--border-radius);
 }
 
@@ -72,7 +72,7 @@ section.board{
 }
 
 .board-header input,
-.board-column input,
+.board-column-header input,
 .card-title input{
     width: auto;
     user-select: none;
@@ -80,6 +80,10 @@ section.board{
     outline: none;
     background: none;
     cursor: default;
+}
+
+.board-column-header input {
+    min-width: 0;
 }
 
 .card-title input{
@@ -125,7 +129,7 @@ section.board{
 
 
 .board-column-header {
-    width: fit-content;
+    justify-content: flex-end;
     display: flex;
 }
 
@@ -142,8 +146,8 @@ section.board{
 }
 
 .board-column-title{
-    text-align: center;
     color: floralwhite;
+    font-weight: 1000;
 }
 
 .card{
@@ -151,11 +155,12 @@ section.board{
     background: #222;
     color: #fff;
     border-radius: var(--border-radius);
+    border: var(--border) 1px solid;
     margin: 4px 0;
     padding: 4px;
 }
 
-.board-column:nth-of-type(1) .card{
+/*.board-column:nth-of-type(1) .card{
     background: var(--status-1);
 }
 
@@ -169,7 +174,7 @@ section.board{
 
 .board-column:nth-of-type(4) .card{
     background: var(--status-4);
-}
+}*/
 
 .card-remove{
     display: block;
