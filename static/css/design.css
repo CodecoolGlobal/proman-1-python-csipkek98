@@ -1,15 +1,19 @@
 :root{
-    --border-radius: 3px;
-    --status-1: #590000;
-    --status-2: #594300;
-    --status-3: #525900;
-    --status-4: #085900;
+    --border-radius: 5px;
+    --status-1: #ea5c5c;
+    --status-2: #ffa530;
+    --status-3: #95a950;
+    --status-4: #89f57b;
+    --background: black;
+    --card: rgb(42, 46, 51);
+    --header: rgb(32, 42, 53);
+    --border: #7c7c7c;
 }
 
 body{
     margin-top: 100px;
     min-width: 620px;
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    background: var(--background);
     font-family: sans-serif;
 }
 
@@ -21,14 +25,15 @@ h1{
     text-align: center;
     font-size: 4em;
     letter-spacing: 5px;
+    color: floralwhite;
     transform: scale(1.2, 1);
     width: 90vw
 }
 
 button{
     background: #222;
-    color: #fff;
-    border: none;
+    color: floralwhite;
+    border: var(--border) 1px inset;
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
@@ -43,15 +48,14 @@ button:active{
     scale: 0.9;
 }
 .board-container{
-    max-width: 960px;
+    max-width: 70%;
     margin: 0 auto;
 }
 
 section.board{
     margin: 20px;
-    border: aliceblue;
-    background: #ffffff90;
-    border-radius: 3px;
+    background: var(--card);
+    border-radius: var(--border-radius);
 }
 
 .board-header form {
@@ -62,11 +66,13 @@ section.board{
     display: flex;
     justify-content: flex-end;
     height: 50px;
-    background: #fff;
+    background: var(--header);
+    border: var(--border) 1px solid;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .board-header input,
+.board-column input,
 .card-title input{
     width: auto;
     user-select: none;
@@ -81,10 +87,12 @@ section.board{
     color: white;
 }
 
+
 .board-title{
     margin: 13px;
     display: inline-block;
     font-size: 20px;
+    color: floralwhite;
 }
 .board-title, .board-add, .board-toggle{
     display: inline-block;
@@ -104,12 +112,21 @@ section.board{
 
 .board-columns{
     display: flex;
+    border: var(--border) 1px solid;
+    flex-basis: auto;
     justify-content: space-evenly;
 }
 
-.board-column{
+.board-column {
     padding: 10px;
-    flex: 1;
+    color: floralwhite;
+    min-width: 0;
+}
+
+
+.board-column-header {
+    width: fit-content;
+    display: flex;
 }
 
 .board-column-content{
@@ -126,6 +143,7 @@ section.board{
 
 .board-column-title{
     text-align: center;
+    color: floralwhite;
 }
 
 .card{

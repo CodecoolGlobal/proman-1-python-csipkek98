@@ -43,9 +43,10 @@ function boardBuilder(board) {
 
 function columnBuilder(status) {
     return `<div class="board-column" draggable="true" data-column-id="${status.id}">
-                <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
-<!--                <div class="board-column-title">-->
-                <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
+                <div class="board-column-header">
+                    <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
+                    <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
+                </div>
                 <div class="board-column-content" data-status-id="${status.id}"></div>
             </div>`;
 }
