@@ -132,11 +132,13 @@ section.board{
     display: flex;
     flex-basis: auto;
     justify-content: space-evenly;
+    max-height: 0;
 }
 
 .board-columns.open {
     border: var(--border) 1px solid;
     border-radius: 0 0 var(--border-radius) var(--border-radius);
+    max-height: 100%;
 }
 
 .board-column {
