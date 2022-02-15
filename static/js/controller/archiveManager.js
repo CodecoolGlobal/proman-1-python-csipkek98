@@ -1,6 +1,7 @@
 import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
+import {reloadBoardData} from "../view/boardRefresh.js";
 
 export let archiveManager = {
   loadModal: async function () {
@@ -29,5 +30,7 @@ function buttonHandler(clickEvent) {
     let cardId = click.getAttribute("data-id")
     dataHandler.copyAndDeleteFromArchive(cardId)
     document.querySelector(`[data-card-modal-id="${cardId}"]`).remove()
+    const boardId = click.closest(".card-modal").getAttribute("data-board-modal-id")
+    reloadBoardData(boardId)
   }
 }

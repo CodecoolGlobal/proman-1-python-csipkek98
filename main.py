@@ -33,7 +33,12 @@ def get_boards():
     """
     All the boards
     """
-    return queires.get_boards()
+    public_boards = queires.get_public_boards()
+    if session.get('user'):
+        user_id = user_manager.get_user_by_name_email(session['user'])["id"]
+        private_boards = queires.get_private_boards(user_id)
+        public_boards.extend(private_boards)
+    return public_boards
 
 
 @app.route("/api/boards/<int:board_id>/rename/<string:new_title>/", methods=["GET", "PUT"])
@@ -61,6 +66,7 @@ def register():
         if request.method == "POST":
             user_data = request.form.copy()
             user_manager.register_user(user_data)
+            session['user'] = user_data['name']
             return redirect(url_for('index'))
         return render_template('register.html')
     return redirect(url_for('index'))
@@ -69,8 +75,15 @@ def register():
 @app.route("/api/create/board/", methods=["POST"])
 @json_response
 def create_new_board():
-    board_title = request.get_json()
-    queires.create_board(board_title)
+    board_data = request.form
+    queires.create_board(board_data["title"])
+    queires.create_default_statuses(queires.get_board_by_title(board_data["title"])["id"])
+    user_bard_data = {
+        "board_id": queires.get_board_by_title(board_data["title"])["id"],
+        "user_id": user_manager.get_user_by_name_email(session["user"])["id"],
+        "status": board_data["status"]
+    }
+    queires.connect_board_user(user_bard_data)
     return 'board created'
 
 
@@ -104,7 +117,6 @@ def rename_card(new_title: str, card_id: int):
 @json_response
 def rename_column(column_id: int, new_title: str):
     if request.method == "PUT":
-        print(column_id, new_title)
         queires.rename_column(new_title, column_id)
     else:
         return redirect(url_for('index'))
@@ -124,7 +136,7 @@ def delete_board(board_id):
         queires.delete_board(board_id)
 
 
-@app.route("/api/register", methods=["GET", "POST"])
+@app.route("/api/register", methods=["POST"])
 def get_username_validation():
     is_exist = user_manager.is_user_exists(request.form["name"], request.form["email"])
     return jsonify(not is_exist)
@@ -142,7 +154,7 @@ def login():
     return redirect(url_for('index'))
 
 
-@app.route("/api/login", methods=["GET", "POST"])
+@app.route("/api/login", methods=["POST"])
 def get_password_validation():
     is_pswd_correct = user_manager.validate_password_by_name(request.form["name"], request.form["password"])
     return jsonify(is_pswd_correct)
@@ -152,6 +164,11 @@ def get_password_validation():
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
+
+
+@app.route("/api/user/is_login", methods=["GET"])
+def get_is_logged_in():
+    return jsonify(session.get('user'))
 
 
 @app.route("/api/archive")

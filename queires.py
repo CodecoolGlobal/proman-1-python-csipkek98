@@ -56,6 +56,26 @@ def create_board(board_title):
         , {"board_title": board_title})
 
 
+def create_default_statuses(board_id):
+    data_manager.execute_insert(
+        """WITH new_columns as (
+        INSERT INTO statuses(title)
+        VALUES ('new'),
+        ('in progress'),
+        ('testing'),
+        ('done')
+        RETURNING id, title
+        )
+        INSERT INTO cards(board_id, status_id, title, card_order) 
+        VALUES (%(board_id)s, (select id from new_columns where new_columns.title='new'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='in progress'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='testing'), 'new card', 1),
+        (%(board_id)s, (select id from new_columns where new_columns.title='done'), 'new card', 1)
+        """,
+        {"board_id": board_id}
+    )
+
+
 def create_card(card_title, board_id):
     data_manager.execute_insert(
         """       
@@ -149,7 +169,7 @@ def delete_board(board_id):
 def get_archive_data():
     return data_manager.execute_select(
         """
-        SELECT archive.id as id, b.title as board, s.title as status, archive.title as title  FROM archive
+        SELECT archive.id as id, b.id as board_id, b.title as board, s.title as status, archive.title as title  FROM archive
         JOIN boards b on archive.board_id = b.id
         JOIN statuses s on archive.status_id = s.id
         """
@@ -176,6 +196,42 @@ def copy_card_from_archive_to_board(card_id):
         """
         , {"card_id": card_id}
     )
+
+
+def connect_board_user(data):
+    data_manager.execute_query(
+        """
+        INSERT INTO user_board
+        VALUES (%(board_id)s, %(user_id)s, %(status)s);
+        """
+        , data)
+
+
+def get_board_by_title(title):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        WHERE title = %(title)s;
+        """
+        , {"title": title}, fetchall=False)
+
+
+def get_public_boards():
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        JOIN user_board ON user_board.board_id = boards.id
+        WHERE user_board.status = 'public';
+        """)
+
+
+def get_private_boards(user_id):
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        JOIN user_board ON user_board.board_id = boards.id
+        WHERE user_board.status = 'private' AND user_board.user_id = %(user_id)s;
+        """, {"user_id": user_id})
 
 
 def change_card_row(card_id, status_id):

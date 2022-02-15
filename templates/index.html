@@ -39,10 +39,23 @@
     </div>
     {% endif %}
         <h1>ProMan</h1>
-        <button id="new-board">New board</button>
-        <div id="new-board-div" hidden>
-            <input type="text" name="board-title" id="board-title"><input type="submit" value="Create" id="save-board">
+    {% if session["user"] %}
+        <div class="create-board">
+            <button id="new-board">New board</button>
+            <div id="new-board-div" hidden>
+                <input type="radio" name="select" id="public" checked>
+                <label for="public" class="option public">
+                    Public
+                </label>
+                <input type="radio" name="select" id="private">
+                <label for="private" class="option private">
+                    Private
+                </label>
+                <input type="text" name="board-title" id="board-title"><input type="submit" value="Create" id="save-board">
+                <button id="cancel-create-board">Cancel</button>
+            </div>
         </div>
+    {% endif %}
         <div id="root"></div>
     </body>
 

@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS statuses CASCADE;
 DROP TABLE IF EXISTS boards CASCADE;
 DROP TABLE IF EXISTS cards CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS user_board CASCADE;
 DROP TABLE IF EXISTS archive;
 
 ---
@@ -75,11 +76,20 @@ CREATE TABLE users (
     registered  timestamp without time zone,
     email       TEXT
 );
+
+CREATE TABLE user_board (
+    board_id    INTEGER         NOT NULL,
+    user_id     INTEGER         NOT NULL,
+    status      VARCHAR (200)   NOT NULL
+);
 ---
 --- insert data
 ---
 
 INSERT INTO users VALUES (nextval('users_id_seq'), 'admin', '$2b$12$Rp1a9lkPt5dTtgZTUH4GxOHMJ.3BB5lCg/Ao5C18q/dAsjiJk70uK', '1000-01-01 00:00:00', 'admin@mail.com');
+
+INSERT INTO user_board VALUES (1, 1, 'public');
+INSERT INTO user_board VALUES (2, 1, 'public');
 
 INSERT INTO board_columns VALUES (1, 1);
 INSERT INTO board_columns VALUES (1, 2);
@@ -116,7 +126,6 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 7, 'planning', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 2);
 
-INSERT INTO archive VALUES (13, 2, 8, 'done card 1', 2);
 
 ---
 --- add constraints
@@ -127,10 +136,16 @@ ALTER TABLE ONLY cards
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY user_board
+    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
+
+ALTER TABLE ONLY user_board
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
     
 ALTER TABLE ONLY board_columns
     ADD CONSTRAINT fk_board_columns_board_id FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY board_columns
     ADD CONSTRAINT fk_board_columns_status_id FOREIGN KEY (status_id) REFERENCES statuses(id) ON DELETE CASCADE;
-    
+

@@ -2,13 +2,15 @@ import { dataHandler } from "../data/dataHandler.js";
 import { htmlFactory, htmlTemplates } from "../view/htmlFactory.js";
 import { domManager } from "../view/domManager.js";
 import * as dragAndDrop from "../view/dragAndDrop.js"
+import { reloadBoardData } from "../view/boardRefresh.js";
 
 export let cardsManager = {
   loadCards: async function (boardId) {
     const cards = await dataHandler.getCardsByBoardId(boardId);
+    let logged_in = await dataHandler.is_logged_in();
     for (let card of cards) {
       const cardBuilder = htmlFactory(htmlTemplates.card);
-      const content = cardBuilder(card);
+      const content = cardBuilder(card, logged_in);
       domManager.addChild(`.board[data-board-id="${boardId}"] [data-status-id="${card.status_id}"]`, content);
       domManager.addEventListener(
         `.card[data-card-id="${card.id}"]`,
@@ -44,10 +46,10 @@ export let cardsManager = {
     const boardId = clickEvent.target.dataset.boardId;
     let cardTitle = document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).value
     dataHandler.createNewCard(cardTitle, boardId)
+    reloadBoardData(boardId)
     document.querySelector(`.save-card[data-board-id="${boardId}"]`).hidden = true
     document.querySelector(`.card-title-input[data-board-id="${boardId}"]`).hidden = true
     document.querySelector(`.board-add[data-board-id="${boardId}"]`).style.display = 'block'
-    location.reload()
   }
 
 };
