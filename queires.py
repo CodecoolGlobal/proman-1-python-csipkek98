@@ -74,15 +74,6 @@ def create_default_statuses(board_id):
         """,
         {"board_id": board_id}
     )
-    # data_manager.execute_insert(
-    #     """
-    #     INSERT INTO cards(board_id, status_id, title, card_order)
-    #     VALUES (%(board_id)s, 1, 'new card', 1),
-    #     (%(board_id)s, 2, 'new card', 1),
-    #     (%(board_id)s, 3, 'new card', 1),
-    #     (%(board_id)s, 4, 'new card', 1)""",
-    #     {"board_id": board_id}
-    # )
 
 
 def create_card(card_title, board_id):
