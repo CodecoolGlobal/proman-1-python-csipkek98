@@ -50,10 +50,10 @@ function boardBuilder(board, logged_in=false) {
 function columnBuilder(status, logged_in=false) {
     let editPart = ''
     if(logged_in){
-        editPart = `<div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>
-                    <form id="board-column-form">
+        editPart = `<form id="board-column-form">
                       <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
-                    </form>`
+                    </form>
+                    <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>`
     }
     else {
         editPart = `<div class="board-column-title">${status.title}`

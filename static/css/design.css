@@ -18,6 +18,8 @@
 
 #new-board-div {
     margin-left: 16vw;
+    gap: 5px;
+    align-items: center;
 }
 body{
     margin-top: 100px;
@@ -37,7 +39,8 @@ h1{
     transform: scale(1.2, 1);
 }
 
-button{
+button,
+input#save-board{
     background: var(--background);
     color: floralwhite;
     border: var(--border) 2px outset;
@@ -47,15 +50,18 @@ button{
     border-radius: var(--border-radius);
 }
 
+input#save-board:hover,
 button:hover{
     background: #333;
     scale: 1.1;
     transition: 0.3s;
 }
 
+input#save-board:active,
 button:active{
     scale: 0.9;
 }
+
 .board-container{
     max-width: 70%;
     margin: 0 auto;
