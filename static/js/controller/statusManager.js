@@ -1,7 +1,8 @@
 import {dataHandler} from "../data/dataHandler.js";
 import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
-import * as dragAndDrop from "../view/dragAndDrop.js"
+import * as dragAndDrop from "../view/dragAndDrop.js";
+import {reloadBoardData} from "../view/boardRefresh.js";
 
 export let statusManager = {
 loadColumns : async function (boardId) {
@@ -53,6 +54,11 @@ loadColumns : async function (boardId) {
           "focusout",
           resetForm
       )
+      domManager.addEventListener(
+          `.status-add[data-board-id="${boardId}"]`,
+          'click',
+          createColumn
+      )
     }
   }
   }
@@ -84,4 +90,11 @@ function resetForm() {
   for (let form of allForms) {
     form.reset()
   }
+}
+
+async function createColumn(clickEvent){
+    const boardId = clickEvent.currentTarget.getAttribute("data-board-id")
+    const statusName = clickEvent.currentTarget.parentElement.querySelector(".status-title-input").value
+    await dataHandler.createStatus(statusName, boardId)
+    reloadBoardData(boardId)
 }
