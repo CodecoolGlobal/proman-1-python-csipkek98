@@ -117,7 +117,6 @@ def rename_card(new_title: str, card_id: int):
 @json_response
 def rename_column(column_id: int, new_title: str):
     if request.method == "PUT":
-        print(column_id, new_title)
         queires.rename_column(new_title, column_id)
     else:
         return redirect(url_for('index'))
