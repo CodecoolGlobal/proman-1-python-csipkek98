@@ -117,10 +117,13 @@ async function showHideButtonHandler(clickEvent) {
     if (addBtn){
         addBtn.style.display = 'block'
     }
+    await loadTableData(boardId)
+  }
+}
+
+export async function loadTableData(boardId){
     await statusManager.loadColumns(boardId);
     await cardsManager.loadCards(boardId);
-  }
-
 }
 
 function toggleInput(clickEvent) {

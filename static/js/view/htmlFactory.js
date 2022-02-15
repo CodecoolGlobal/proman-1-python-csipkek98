@@ -77,7 +77,7 @@ function cardBuilder(card, logged_in=false) {
 }
 
 function modalBuilder(archive) {
-    return`<div class="card-modal" data-card-modal-id="${archive.id}">
+    return`<div class="card-modal" data-card-modal-id="${archive.id}" data-board-modal-id="${archive.board_id}">
                 <div class="header-modal">
                   <div class="card-text">From: ${archive.board}; ${archive.status}<div class="card-icon" data-id="${archive.id}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></div></div>
                 </div>

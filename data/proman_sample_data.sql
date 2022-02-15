@@ -126,7 +126,6 @@ INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 7, 'planning', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 1);
 INSERT INTO cards VALUES (nextval('cards_id_seq'), 2, 8, 'done card 1', 2);
 
-INSERT INTO archive VALUES (13, 2, 8, 'done card 1', 2);
 
 ---
 --- add constraints
