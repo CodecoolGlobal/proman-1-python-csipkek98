@@ -77,6 +77,7 @@ def register():
 def create_new_board():
     board_data = request.form
     queires.create_board(board_data["title"])
+    queires.create_default_statuses(queires.get_board_by_title(board_data["title"])["id"])
     user_bard_data = {
         "board_id": queires.get_board_by_title(board_data["title"])["id"],
         "user_id": user_manager.get_user_by_name_email(session["user"])["id"],
