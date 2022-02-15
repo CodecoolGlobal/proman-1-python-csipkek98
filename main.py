@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, jsonify, session
 from dotenv import load_dotenv
+from flask_socketio import SocketIO, send, emit
 
 
 from util import json_response
@@ -11,6 +12,7 @@ mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
 app.secret_key = "a very very secret key: hdauigfgteuzdaegku"
+socketio = SocketIO(app, logger=True)
 
 
 @app.route("/")
@@ -201,8 +203,19 @@ def update_card_status(card_id, new_column):
         return "Update Done!"
 
 
+@socketio.on('connect')
+def handle_my_custom_namespace_event(json):
+    print('received json: ' + str(json))
+
+
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
+    send(data)
+
+
 def main():
-    app.run(debug=True)
+    socketio.run(app, debug=True)
 
     # Serving the favicon
     with app.app_context():
