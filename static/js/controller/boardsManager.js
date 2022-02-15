@@ -56,6 +56,21 @@ export let boardsManager = {
           "focusout",
           resetForm
       )
+      domManager.addEventListener(
+          `#new-board`,
+          "click",
+          createBoard
+      )
+      domManager.addEventListener(
+          `#save-board`,
+          "click",
+          saveBoard
+      )
+      domManager.addEventListener(
+          `#cancel-create-board`,
+          "click",
+          cancelBoard
+      )
     }
   }
 };
@@ -115,35 +130,30 @@ function toggleInput(clickEvent) {
   toggleSaveButtonForElement(targetInput);
 }
 
-
-// create board
-async function initCreateBtn(){
-  const newBoardButton = await document.getElementById("new-board");
+async function createBoard(){
   const newBoardDiv = await document.getElementById("new-board-div");
-  const cancelNewBoard = await document.querySelector("#cancel-create-board");
-
-  if(newBoardButton) {
-    cancelNewBoard.addEventListener("click", function () {
-      newBoardButton.style.display = 'block';
-      newBoardDiv.style.display = "none";
-    });
-
-    newBoardButton.addEventListener("click", function () {
-      newBoardButton.style.display = 'none';
-      newBoardDiv.style.display = "flex";
-    })
-
-    document.getElementById("save-board").addEventListener("click", async function () {
-      let response = await dataHandler.createNewBoard(await getBoardData());
-      console.log(response);
-      boardsManager.loadBoards();
-      newBoardButton.style.display = 'block';
-      newBoardDiv.style.display = "none";
-    })
-  }
+  const newBoardButton = await document.getElementById("new-board");
+  newBoardButton.style.display = 'none';
+  newBoardDiv.style.display = "flex";
 }
 
-initCreateBtn();
+async function cancelBoard() {
+  const newBoardDiv = await document.getElementById("new-board-div");
+  const newBoardButton = await document.getElementById("new-board");
+  newBoardButton.style.display = 'block';
+  newBoardDiv.style.display = "none";
+}
+
+    async function saveBoard(){
+    const newBoardDiv = await document.getElementById("new-board-div");
+    const newBoardButton = await document.getElementById("new-board");
+      let response = await dataHandler.createNewBoard(await getBoardData());
+      console.log(response);
+      await boardsManager.loadBoards();
+      newBoardButton.style.display = 'block';
+      newBoardDiv.style.display = "none";
+    }
+
 
 async function getBoardData(){
   let boardData = await new FormData;
