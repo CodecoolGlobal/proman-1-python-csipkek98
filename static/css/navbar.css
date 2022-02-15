@@ -8,6 +8,9 @@
   display: flex;
   flex-flow: row;
   justify-content: flex-start;
+  border-width: 0 0 1px 0;
+  border-color: #7c7c7c;
+  border-style: solid;
 }
 
 /* Links inside the navbar */
@@ -24,6 +27,7 @@
 .navbar a:hover {
   background: #ddd;
   color: black;
+  transition: 0.8s;
 }
 
 .username{

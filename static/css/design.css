@@ -25,9 +25,11 @@ body{
     background: var(--background);
     font-family: sans-serif;
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 h1{
+    user-select: none;
     text-align: center;
     font-size: 4em;
     letter-spacing: 5px;
@@ -48,6 +50,7 @@ button{
 button:hover{
     background: #333;
     scale: 1.1;
+    transition: 0.3s;
 }
 
 button:active{
