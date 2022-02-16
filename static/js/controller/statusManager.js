@@ -66,10 +66,11 @@ loadColumns : async function (boardId) {
 
 async function deleteColumn(clickEvent){
     let click = clickEvent.target.parentElement
+    let boardId = click.closest("[data-board-id]").getAttribute("data-board-id")
     if (click.classList.contains("board-column-remove")){
-        let columnId = click.parentElement.getAttribute("data-column-id")
+        let columnId = click.closest("[data-column-id]").getAttribute("data-column-id")
         await dataHandler.deleteStatus(columnId)
-        click.parentElement.remove()
+        reloadBoardData(boardId)
     }
 }
 

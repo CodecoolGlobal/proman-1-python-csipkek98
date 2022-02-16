@@ -138,6 +138,7 @@ def rename_column(column_id: int, new_title: str):
 @json_response
 def delete_status_from_board(status_id):
     if request.method == "DELETE":
+        print(status_id)
         queires.delete_status(status_id)
 
 
