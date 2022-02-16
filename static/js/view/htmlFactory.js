@@ -37,7 +37,7 @@ function boardBuilder(board, logged_in=false) {
     return `<div class="board-container">
             <section class="board" data-board-id=${board.id}>
                 <div class="board-header">
-                    <form id="board-title-form" data-board-id="${board.id}">
+                    <form id="board-title-form" onsubmit="return false" data-board-id="${board.id}">
                     <input class="board-title" value="${board.title}" data-board-id="${board.id}" readonly>
                     </form>
                     ${editPart}
@@ -53,7 +53,7 @@ function boardBuilder(board, logged_in=false) {
 function columnBuilder(status, logged_in=false) {
     let editPart = ''
     if(logged_in){
-        editPart = `<form id="board-column-form">
+        editPart = `<form id="board-column-form" onsubmit="return false">
                       <input class="board-column-title" value="${status.title}" data-status-idd="${status.id}" >
                     </form>
                     <div class="board-column-remove"><i class="fas fa-trash-alt"></i></div>`
@@ -80,7 +80,7 @@ function cardBuilder(card, logged_in=false) {
     }
     return `${editPart}
                 <div class="card-title">
-                <form id="card-title-form"><input data-card-id="${card.id}" value="${card.title}" readonly>
+                <form id="card-title-form" onsubmit="return false"><input data-card-id="${card.id}" value="${card.title}" readonly>
                 </form></div>
             </div>`;
 }

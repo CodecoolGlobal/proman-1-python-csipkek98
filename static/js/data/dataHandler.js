@@ -33,7 +33,7 @@ export let dataHandler = {
     // creates new card, saves it and calls the callback function with its data
   },
   renameBoard: async function (newTitle, boardId) {
-    const response = await apiPut(`api/boards/${boardId}/rename/${newTitle}`)
+    const response = await apiPut(`api/boards/${boardId}/rename/${newTitle}/`)
     return response
   },
   deleteCard: async function (cardId){

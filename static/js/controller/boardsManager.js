@@ -51,11 +51,11 @@ export let boardsManager = {
           "click",
           cardsManager.saveCard
       )
-      domManager.addEventListener(
-          `form[data-board-id="${board.id}"]`,
-          "focusout",
+/*      domManager.addEventListener(
+          "body",
+          "click",
           resetForm
-      )
+      )*/
       domManager.addEventListener(
           `#new-board`,
           "click",
@@ -192,7 +192,8 @@ async function renameBoard(clickEvent) {
 
 function resetForm(e) {
   let allForms = document.querySelectorAll("form");
-  toggleSaveButtonForElement(e.target);
+  let saveButton = document.querySelector(".save-title");
+  saveButton.hidden === true ? saveButton.hidden = false : saveButton.hidden = true;
   for (let form of allForms) {
     form.reset()
   }
