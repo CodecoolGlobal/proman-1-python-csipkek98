@@ -1,6 +1,6 @@
 :root{
     --border-radius: 5px;
-    --status-1: #ea5c5c;
+    --status-1: #f55959;
     --status-2: #ffa530;
     --status-3: #95a950;
     --status-4: #89f57b;
@@ -51,7 +51,7 @@ input#save-board{
     color: floralwhite;
     border: var(--border) 2px outset;
     font-size: 14px;
-    font-family: sans-serif;
+    font-family: 'Helvetica', 'sans-serif';
     padding: 4px 10px;
     border-radius: var(--border-radius);
 }
@@ -113,6 +113,7 @@ input.board-title,
     outline: none;
     background: none;
     cursor: pointer;
+    font-family: 'Helvetica', 'sans-serif';
 }
 input.board-title,
 .card-title input {
@@ -231,21 +232,21 @@ input.board-title,
     box-shadow: rgba(17, 17, 17, 0.8) 0 0 10px;
 }
 
-/*.board-column:nth-of-type(1) .card{
-    background: var(--status-1);
+.board-column:nth-of-type(1) .card input{
+    color: var(--status-1);
 }
 
-.board-column:nth-of-type(2) .card{
-    background: var(--status-2);
+.board-column:nth-of-type(2) .card input {
+    color: var(--status-2);
 }
 
-.board-column:nth-of-type(3) .card{
-    background: var(--status-3);
+.board-column:nth-of-type(3) .card input{
+    color: var(--status-3);
 }
 
-.board-column:nth-of-type(4) .card{
-    background: var(--status-4);
-}*/
+.board-column:nth-of-type(4) .card input{
+    color: var(--status-4);
+}
 
 .card-remove{
     display: block;
