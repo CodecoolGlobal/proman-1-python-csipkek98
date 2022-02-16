@@ -4,12 +4,13 @@
     --status-2: #ffa530;
     --status-3: #95a950;
     --status-4: #89f57b;
-    --background: #1f1f1f;
-    --card: rgb(42, 46, 51);
+    --background: rgb(39, 39, 47);
+    --column-background: #1a1a1a;
+    --card: rgb(43, 46, 52);
     --header: rgb(32, 42, 53);
     --border: #9b9b9b;
     --card-font: #378eff;
-    --body-bg: #111111;
+    --body-bg: rgb(45, 45, 45);
 }
 
 #new-board {
@@ -26,6 +27,7 @@ body{
     margin-top: 100px;
     min-width: 100%;
     background: var(--body-bg);
+    background-image: url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagmonds.png);
     font-family: sans-serif;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -74,7 +76,8 @@ button:active{
 section.board{
     margin: 20px;
     background: var(--background);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) var(--border-radius) 15px 15px;
+    box-shadow: rgba(17, 17, 17, 0.8) 0 0 10px;
 }
 
 .board-header form {
@@ -89,11 +92,11 @@ section.board{
     background: var(--header);
     background-image: linear-gradient(
         135deg,
-        black 10%,
+        #1f1f1f 10%,
         30%,
         var(--header) 90%
     );
-    border: var(--border) 1px solid;
+/*    border: var(--border) 1px solid;*/
     border-radius: var(--border-radius);
 }
 
@@ -104,13 +107,16 @@ section.board{
 input.board-title,
 .board-column-header input,
 .card-title input{
-    font-weight: 1000;
     width: auto;
     user-select: none;
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
+}
+input.board-title,
+.card-title input {
+    font-weight: 1000;
 }
 
 .status-title input {
@@ -173,8 +179,8 @@ input.board-title,
 }
 
 .board-columns.open {
-    border: var(--border) 1px solid;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+/*    border: var(--border) 1px solid;*/
+    border-radius: 0 0 15px 15px;
     max-height: 100%;
 }
 
@@ -183,9 +189,10 @@ input.board-title,
     padding: 10px;
     color: darkgray;
     min-width: 0;
-    background: var(--body-bg);
-    border-radius: var(--border-radius);
-    border: var(--border) 1px solid;
+    background: var(--column-background);
+    border-radius: 15px;
+    box-shadow: rgba(17, 17, 17, 0.8) 0 0 5px;
+/*    border: var(--border) 1px solid;*/
 }
 
 
@@ -210,17 +217,18 @@ input.board-title,
 
 .board-column-title{
     color: darkgray;
-    font-weight: 1000;
+    font-weight: 650;
 }
 
 .card{
     position: relative;
-    background: #222;
+    background: var(--card);
     color: darkgray;
     border-radius: var(--border-radius);
-    border: var(--border) 1px solid;
+/*    border: var(--border) 1px solid;*/
     margin: 4px 0;
     padding: 4px;
+    box-shadow: rgba(17, 17, 17, 0.8) 0 0 10px;
 }
 
 /*.board-column:nth-of-type(1) .card{
