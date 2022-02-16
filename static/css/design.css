@@ -1,6 +1,6 @@
 :root{
     --border-radius: 5px;
-    --status-1: #f55959;
+    --status-1: #ea5c5c;
     --status-2: #ffa530;
     --status-3: #95a950;
     --status-4: #89f57b;
@@ -125,9 +125,8 @@ input.board-title,
     border: var(--border) 1px inset;
 }
 
-.board-header input:hover,
+input.board-title:hover,
 .board-column-header input:hover,
-.card-title input:hover,
 .fa-trash-alt:hover,
 .fa-archive:hover{
     color: floralwhite;
@@ -248,6 +247,10 @@ input.board-title,
     color: var(--status-4);
 }
 
+.board-column .card input:hover {
+    color:floralwhite;
+    transition: color 0.2s ease-in;
+}
 .card-remove{
     display: block;
     position: absolute;
