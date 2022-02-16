@@ -21,16 +21,21 @@ export let cardsManager = {
           `input[data-card-id="${card.id}"]`,
           "click",
           toggleInput
-      )
+      );
       domManager.addEventListener(
           `.card[data-card-id="${card.id}"]`,
           "dragstart",
           dragAndDrop.handleDragStart
-      )
+      );
       domManager.addEventListener(
           `.card[data-card-id="${card.id}"]`,
           "dragend",
           dragAndDrop.handleDragEnd
+      );
+      domManager.addEventListener(
+          `.card[data-card-id="${card.id}"] input`,
+          "focusout",
+          resetForm
       )
     }
   },
@@ -77,4 +82,11 @@ function toggleInput(clickEvent) {
   const targetInput = clickEvent.target;
   targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
   targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
+}
+
+function resetForm() {
+  let allForms = document.querySelectorAll("form");
+  for (let form of allForms) {
+    form.reset()
+  }
 }

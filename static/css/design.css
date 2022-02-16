@@ -41,6 +41,7 @@ h1{
 
 button,
 input#save-board{
+    cursor: pointer;
     background: var(--background);
     color: floralwhite;
     border: var(--border) 2px outset;
@@ -53,7 +54,7 @@ input#save-board{
 input#save-board:hover,
 button:hover{
     background: #333;
-    scale: 1.1;
+    scale: 1.05;
     transition: 0.3s;
 }
 
@@ -100,7 +101,7 @@ section.board{
     border: none;
     outline: none;
     background: none;
-    cursor: default;
+    cursor: pointer;
 }
 
 .board-header input:hover,
@@ -134,7 +135,7 @@ section.board{
 }
 
 .board-toggle, .board-add, .save-title, .save-card, .card-title-input{
-    margin: 0.5em 0;
+    margin: 0.5em 1.5em 0.5em 0;
 }
 
 .board-toggle.close{
@@ -171,6 +172,7 @@ section.board{
     justify-content: flex-end;
     display: flex;
     margin-bottom: 1em;
+    padding: 0 0.5em;
 }
 
 .board-column-content{
