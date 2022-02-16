@@ -8,6 +8,7 @@ export let statusManager = {
 loadColumns : async function (boardId) {
     const statuses = await dataHandler.getStatuses(boardId);      // only uses default values
     let logged_in = await dataHandler.is_logged_in();
+    console.log(statuses)
     for (let status of statuses) {
       const columnBuilder = htmlFactory(htmlTemplates.column);
       const content = columnBuilder(status, logged_in);
