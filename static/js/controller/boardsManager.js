@@ -22,6 +22,11 @@ export let boardsManager = {
         showHideButtonHandler
       );
       domManager.addEventListener(
+        `.board-toggle[data-board-id="${board.id}"]`,
+        "click",
+        showHideAddColumn
+      );
+      domManager.addEventListener(
           `.board[data-board-id="${board.id}"] input`,
           "click",
           toggleInput
@@ -176,7 +181,7 @@ async function getBoardData(){
 function toggleSaveButtonForElement(element) {
   const saveButton = document.querySelector(`.save-title[data-board-id="${element.dataset.boardId}"]`)
   if (saveButton) {
-    saveButton.hidden === true ? saveButton.hidden = false : saveButton.hidden = true;
+    switchHiddenVisible(saveButton);
   } else {
     console.log('no save button found')
   }
@@ -193,8 +198,21 @@ async function renameBoard(clickEvent) {
 function resetForm(e) {
   let allForms = document.querySelectorAll("form");
   let saveButton = document.querySelector(".save-title");
-  saveButton.hidden === true ? saveButton.hidden = false : saveButton.hidden = true;
+  switchHiddenVisible(saveButton);
   for (let form of allForms) {
     form.reset()
   }
+}
+
+function showHideAddColumn(clickEvent) {
+  const boardId = clickEvent.target.dataset.boardId;
+  const addColumnInput = document.querySelector(`.status-title-input[data-board-id="${boardId}"]`);
+  const addColumnButton = document.querySelector(`.status-add[data-board-id="${boardId}"]`)
+  switchHiddenVisible(addColumnInput);
+  switchHiddenVisible(addColumnButton);
+}
+
+
+function switchHiddenVisible(element) {
+  element.hidden === true ? element.hidden = false : element.hidden = true;
 }
