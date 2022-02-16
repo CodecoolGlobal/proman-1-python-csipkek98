@@ -42,6 +42,7 @@ h1{
 
 button,
 .save-title,
+.status-add,
 input#save-board{
     cursor: pointer;
     background: var(--background);
@@ -100,7 +101,7 @@ section.board{
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
-.board-header input,
+input.board-title,
 .board-column-header input,
 .card-title input{
     font-weight: 1000;
@@ -110,6 +111,11 @@ section.board{
     outline: none;
     background: none;
     cursor: pointer;
+}
+
+.status-title input {
+    background: floralwhite;
+    border: var(--border) 1px inset;
 }
 
 .board-header input:hover,
@@ -132,19 +138,25 @@ section.board{
     font-style: italic;
 }
 
-
 .board-title{
     margin: 13px;
     display: inline-block;
     font-size: 20px;
     color: var(--border);
 }
+
 .board-title, .board-add, .board-toggle{
     display: inline-block;
 }
 
-.board-toggle, .board-add, .save-title, .save-card, .card-title-input{
-    margin: 0.5em 1.5em 0.5em 0;
+.status-add,
+.status-title-input,
+.board-toggle,
+.board-add,
+.save-title,
+.save-card,
+.card-title-input{
+    margin: 0.5em 0.3em;
 }
 
 .board-toggle.close{

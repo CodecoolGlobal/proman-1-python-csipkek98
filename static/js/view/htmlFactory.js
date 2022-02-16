@@ -30,8 +30,8 @@ function boardBuilder(board, logged_in=false) {
                     <button class="board-add" data-board-id="${board.id}" style="display: none">Add card</button>                    
                     <button class="board-toggle" data-board-remove="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
                     
-                    <input class="status-title-input" data-board-id="${board.id}" value="Status title">
-                    <button class="status-add" data-board-id="${board.id}">add column</button>
+                    <input class="status-title-input" data-board-id="${board.id}" value="Status title" hidden>
+                    <button class="status-add" data-board-id="${board.id}" hidden>add column</button>
                    `
     }
     return `<div class="board-container">
