@@ -95,10 +95,10 @@ INSERT INTO board_columns VALUES (1, 1);
 INSERT INTO board_columns VALUES (1, 2);
 INSERT INTO board_columns VALUES (1, 3);
 INSERT INTO board_columns VALUES (1, 4);
-INSERT INTO board_columns VALUES (2, 1);
-INSERT INTO board_columns VALUES (2, 2);
-INSERT INTO board_columns VALUES (2, 3);
-INSERT INTO board_columns VALUES (2, 4);
+INSERT INTO board_columns VALUES (2, 5);
+INSERT INTO board_columns VALUES (2, 6);
+INSERT INTO board_columns VALUES (2, 7);
+INSERT INTO board_columns VALUES (2, 8);
 
 
 INSERT INTO statuses(title) VALUES ('new');
