@@ -77,7 +77,9 @@ def register():
 def create_new_board():
     board_data = request.form
     queires.create_board(board_data["title"])
-    queires.create_default_statuses(queires.get_board_by_title(board_data["title"])["id"])
+    default_board_names = ["new", "in progress", "testing", "done"]
+    for board_name in default_board_names:
+        queires.create_default_statuses(queires.get_board_by_title(board_data["title"])["id"], board_name)
     user_bard_data = {
         "board_id": queires.get_board_by_title(board_data["title"])["id"],
         "user_id": user_manager.get_user_by_name_email(session["user"])["id"],
@@ -101,10 +103,8 @@ def create_new_card():
 @json_response
 def create_status():
     status_data = request.get_json()
-    print(status_data)
     status_title = status_data['statusTitle']
     board_id = status_data['boardId']
-    print(board_id)
     queires.create_status(status_title, board_id)
     return 'status created'
 

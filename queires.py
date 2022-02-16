@@ -57,41 +57,38 @@ def create_board(board_title):
         , {"board_title": board_title})
 
 
-def create_default_statuses(board_id):
+def create_default_statuses(board_id, column_name):
     data_manager.execute_insert(
-        """WITH new_columns as (
-        INSERT INTO statuses(title)
-        VALUES ('new'),
-        ('in progress'),
-        ('testing'),
-        ('done')
-        RETURNING id, title
-        )
-        INSERT INTO cards(board_id, status_id, title, card_order) 
-        VALUES (%(board_id)s, (select id from new_columns where new_columns.title='new'), 'new card', 1),
-        (%(board_id)s, (select id from new_columns where new_columns.title='in progress'), 'new card', 1),
-        (%(board_id)s, (select id from new_columns where new_columns.title='testing'), 'new card', 1),
-        (%(board_id)s, (select id from new_columns where new_columns.title='done'), 'new card', 1)
+        """
+            WITH new_columns as (
+            INSERT INTO statuses(title)
+            VALUES (%(column_name)s)
+            RETURNING id
+            ) INSERT INTO board_columns(board_id, status_id) 
+            VALUES (%(board_id)s, (select id from new_columns))
         """,
-        {"board_id": board_id}
-    )
+        {"board_id": board_id, "column_name": column_name})
 
 
 def create_card(card_title, board_id):
     data_manager.execute_insert(
         """       
-        INSERT INTO cards(title, board_id, status_id, card_order)
-        VALUES (%(card_title)s, %(board_id)s,
-        (SELECT MIN(status_id)
-        FROM cards
-        WHERE board_id = %(board_id)s
-        ),
-        (
-        SELECT MAX(card_order)+1
-        FROM cards
-        WHERE board_id = %(board_id)s))""",
-        {"card_title": card_title, "board_id": board_id}
-    )
+    INSERT INTO cards(title, board_id, status_id, card_order)
+    VALUES (%(card_title)s, %(board_id)s,
+    (SELECT MIN(status_id)
+    FROM board_columns
+    WHERE board_id = %(board_id)s
+    ),
+    (CASE
+    WHEN (SELECT MAX(card_order)+1
+    FROM cards
+    WHERE board_id = %(board_id)s) IS NOT NULL
+    THEN (SELECT MAX(card_order)+1
+    FROM cards
+    WHERE board_id = %(board_id)s)
+    ELSE 1 END  ))
+     """,
+        {"card_title": card_title, "board_id": board_id})
 
 
 def rename_board(title, board_id):
