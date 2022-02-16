@@ -37,7 +37,7 @@ def get_cards_for_board(board_id):
 def get_statuses(board_id):
     default_statuses = data_manager.execute_select(
         """
-        SELECT statuses.id, statuses.title, b.id FROM statuses
+        SELECT statuses.id, statuses.title, b.id as board_id FROM statuses
         JOIN board_columns ON statuses.id = board_columns.status_id
         JOIN boards b on board_columns.board_id = b.id
         WHERE b.id = %(board_id)s
