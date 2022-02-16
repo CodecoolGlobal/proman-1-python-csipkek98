@@ -173,8 +173,9 @@ input.board-title:hover,
 
 .board-columns{
     display: flex;
-    flex-basis: auto;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0 1em;
+    gap: 1em;
     max-height: 0;
 }
 
