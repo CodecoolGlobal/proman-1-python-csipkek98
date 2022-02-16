@@ -7,7 +7,7 @@
     --background: #1f1f1f;
     --card: rgb(42, 46, 51);
     --header: rgb(32, 42, 53);
-    --border: #7c7c7c;
+    --border: #9b9b9b;
     --card-font: #378eff;
 }
 
@@ -18,6 +18,8 @@
 
 #new-board-div {
     margin-left: 16vw;
+    gap: 5px;
+    align-items: center;
 }
 body{
     margin-top: 100px;
@@ -37,7 +39,9 @@ h1{
     transform: scale(1.2, 1);
 }
 
-button{
+button,
+input#save-board{
+    cursor: pointer;
     background: var(--background);
     color: floralwhite;
     border: var(--border) 2px outset;
@@ -47,15 +51,18 @@ button{
     border-radius: var(--border-radius);
 }
 
+input#save-board:hover,
 button:hover{
     background: #333;
-    scale: 1.1;
+    scale: 1.05;
     transition: 0.3s;
 }
 
+input#save-board:active,
 button:active{
     scale: 0.9;
 }
+
 .board-container{
     max-width: 70%;
     margin: 0 auto;
@@ -75,6 +82,7 @@ section.board{
     display: flex;
     justify-content: flex-end;
     height: 50px;
+    gap: 0.3em;
     background: var(--header);
     border: var(--border) 1px solid;
     border-radius: var(--border-radius);
@@ -87,12 +95,22 @@ section.board{
 .board-header input,
 .board-column-header input,
 .card-title input{
+    font-weight: 1000;
     width: auto;
     user-select: none;
     border: none;
     outline: none;
     background: none;
-    cursor: default;
+    cursor: pointer;
+}
+
+.board-header input:hover,
+.board-column-header input:hover,
+.card-title input:hover,
+.fa-trash-alt:hover,
+.fa-archive:hover{
+    color: floralwhite;
+    transition: color 0.3s ease-in-out;
 }
 
 .board-column-header input {
@@ -110,16 +128,14 @@ section.board{
     margin: 13px;
     display: inline-block;
     font-size: 20px;
-    color: floralwhite;
+    color: var(--border);
 }
 .board-title, .board-add, .board-toggle{
     display: inline-block;
 }
 
 .board-toggle, .board-add, .save-title, .save-card, .card-title-input{
-
-    justify-self: flex-end;
-    margin: 13px;
+    margin: 0.5em 1.5em 0.5em 0;
 }
 
 .board-toggle.close{
@@ -156,6 +172,7 @@ section.board{
     justify-content: flex-end;
     display: flex;
     margin-bottom: 1em;
+    padding: 0 0.5em;
 }
 
 .board-column-content{

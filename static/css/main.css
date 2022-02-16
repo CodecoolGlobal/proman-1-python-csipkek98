@@ -29,31 +29,40 @@
   padding: 2px 16px;
 }
 
+
+/*
 #new-board-div{
   flex-flow: row;
   justify-content: flex-end;
 }
+*/
 
 .create-board{
   margin: auto;
   display: flex;
-  max-width: 960px;
+  max-width: 70%;
   flex-flow: row;
   justify-content: flex-end;
+  gap: 10px;
+  align-content: center;
+  padding-right: 40px;
 }
 
 .option{
-  background: #fff;
+  background: var(--background);
+  color: floralwhite;
+  border: var(--border) 2px outset;
+  font-size: 14px;
+  font-family: sans-serif;
+  padding: 0 10px;
+  border-radius: var(--border-radius);
   height: 100%;
   width: 100%;
   display: flex;
   flex-flow: column;
   justify-content: center;
   margin: 0 1px;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 0 10px;
-  border: 2px solid lightgrey;
   transition: all 0.3s ease;
 }
 input[type="radio"]{

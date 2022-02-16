@@ -25,20 +25,19 @@
     <body>
     {% if session["user"] %}
     <div class="navbar">
-      <a href="{{ url_for("index") }}">Home</a>
+      <a id="home-link" href="{{ url_for("index") }}">ProMan®</a>
       <a href="{{ url_for("logout") }}">Logout</a>
       <a id="myBtn"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>
         <div class="username">{{ session["user"] }}</div>
     </div>
     {% else %}
     <div class="navbar">
-      <a href="{{ url_for("index") }}">Home</a>
+      <a id="home-link" href="{{ url_for("index") }}">ProMan®</a>
       <a href="{{ url_for("login") }}">Login</a>
       <a href="{{ url_for("register") }}">Register</a>
       <a id="myBtn"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>
     </div>
     {% endif %}
-        <h1>ProMan</h1>
     {% if session["user"] %}
         <div class="create-board">
             <button id="new-board">New board</button>
