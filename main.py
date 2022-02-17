@@ -11,7 +11,7 @@ import user_manager
 import os
 import psycopg2
 
-connection_string = os.environ.get('postgresql-convex-48659')
+connection_string = os.environ.get('postgres://xzjtkovptrnxpm:0d08358430322a827292c36bff3d08b10892c4925ffa78c72d090213af0235f4@ec2-54-216-90-155.eu-west-1.compute.amazonaws.com:5432/d1r9psculeuq5')
 connection = psycopg2.connect(connection_string)
 
 mimetypes.add_type('application/javascript', '.js')
