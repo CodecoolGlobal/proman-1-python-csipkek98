@@ -2,6 +2,9 @@ import os
 import psycopg2
 import psycopg2.extras
 
+connection_string = os.environ.get('postgresql-convex-48659')
+connection = psycopg2.connect(connection_string)
+
 
 def establish_connection(connection_data=None):
     """
