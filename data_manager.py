@@ -15,7 +15,7 @@ def establish_connection(connection_data=None):
     if connection_data is None:
         connection_data = get_connection_data()
     try:
-        connect_str = os.environ.get('postgres://xzjtkovptrnxpm:0d08358430322a827292c36bff3d08b10892c4925ffa78c72d090213af0235f4@ec2-54-216-90-155.eu-west-1.compute.amazonaws.com:5432/d1r9psculeuq5h')
+        connect_str = 'postgres://xzjtkovptrnxpm:0d08358430322a827292c36bff3d08b10892c4925ffa78c72d090213af0235f4@ec2-54-216-90-155.eu-west-1.compute.amazonaws.com:5432/d1r9psculeuq5h'
         conn = psycopg2.connect(connect_str)
         conn.autocommit = True
     except psycopg2.DatabaseError as e:
