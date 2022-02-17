@@ -7,6 +7,12 @@ import mimetypes
 import queires
 import user_manager
 
+import os
+import psycopg2
+
+connection_string = os.environ.get('postgresql-convex-48659')
+connection = psycopg2.connect(connection_string)
+
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
