@@ -47,6 +47,7 @@ def get_boards():
 @json_response
 def rename_board(new_title: str, board_id: int):
     if request.method == "PUT":
+        socketio.emit('edit', "true", broadcast=True)
         queires.rename_board(new_title, board_id)
     else:
         return redirect(url_for('index'))
@@ -92,6 +93,7 @@ def create_new_board():
 @app.route("/api/create/card/", methods=["POST"])
 @json_response
 def create_new_card():
+    socketio.emit('edit', "true", broadcast=True)
     card = request.get_json()
     card_title = card['cardTitle']
     board_id = card['boardId']
@@ -103,6 +105,7 @@ def create_new_card():
 @json_response
 def delete_card_from_board(card_id):
     if request.method == "DELETE":
+        socketio.emit('edit', "true", broadcast=True)
         queires.delete_card_from_board(card_id)
 
 
@@ -110,6 +113,7 @@ def delete_card_from_board(card_id):
 @json_response
 def rename_card(new_title: str, card_id: int):
     if request.method == "PUT":
+        socketio.emit('edit', "true", broadcast=True)
         queires.rename_card(new_title, card_id)
     else:
         return redirect(url_for('index'))
@@ -119,6 +123,7 @@ def rename_card(new_title: str, card_id: int):
 @json_response
 def rename_column(column_id: int, new_title: str):
     if request.method == "PUT":
+        socketio.emit('edit', "true", broadcast=True)
         queires.rename_column(new_title, column_id)
     else:
         return redirect(url_for('index'))
@@ -128,6 +133,7 @@ def rename_column(column_id: int, new_title: str):
 @json_response
 def delete_status_from_board(status_id):
     if request.method == "DELETE":
+        socketio.emit('edit', "true", broadcast=True)
         queires.delete_status(status_id)
 
 
@@ -135,6 +141,7 @@ def delete_status_from_board(status_id):
 @json_response
 def delete_board(board_id):
     if request.method == "DELETE":
+        socketio.emit('edit', "true", broadcast=True)
         queires.delete_board(board_id)
 
 
@@ -183,6 +190,7 @@ def get_archive_data():
 @json_response
 def copy_card_from_board(card_id):
     if request.method == "DELETE":
+        socketio.emit('edit', "true", broadcast=True)
         queires.copy_card_from_board_to_archive(card_id)
         queires.delete_card_from_board(card_id)
 
@@ -191,6 +199,7 @@ def copy_card_from_board(card_id):
 @json_response
 def copy_card_from_archive(card_id):
     if request.method == "DELETE":
+        socketio.emit('edit', "true", broadcast=True)
         queires.copy_card_from_archive_to_board(card_id)
         queires.delete_card_from_archive(card_id)
 
@@ -199,19 +208,9 @@ def copy_card_from_archive(card_id):
 @json_response
 def update_card_status(card_id, new_column):
     if request.method == "PUT":
+        socketio.emit('edit', "true", broadcast=True)
         queires.change_card_row(card_id, new_column)
         return "Update Done!"
-
-
-@socketio.on('connect')
-def handle_my_custom_namespace_event(json):
-    print('received json: ' + str(json))
-
-
-@socketio.on('message')
-def handle_message(data):
-    print('received message: ' + data)
-    send(data)
 
 
 def main():
