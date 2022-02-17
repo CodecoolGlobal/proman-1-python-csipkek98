@@ -127,7 +127,6 @@ async function showHideButtonHandler(clickEvent) {
     await loadTableData(boardId)
     storeOpenBoards(boardId);
   }
-  console.log(JSON.parse(sessionStorage.getItem("boards")))
   boardHeader.classList.toggle("open");
   openBoard.classList.toggle("open");
 }
