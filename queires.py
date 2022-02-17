@@ -112,7 +112,7 @@ def delete_card_from_board(card_id):
     )
 
 
-def rename_card(title, card_id):
+def rename_cards(title, card_id):
     modded_id = data_manager.execute_query(
         """
         UPDATE cards SET title = %(title)s WHERE cards.id = %(card_id)s RETURNING board_id;

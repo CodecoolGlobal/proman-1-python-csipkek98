@@ -57,7 +57,7 @@ def rename_board(new_title: str, board_id: int):
 @json_response
 def rename_card(new_title: str, card_id: int):
     if request.method == "PUT":
-        queires.rename_card(new_title, card_id)
+        queires.rename_cards(new_title, card_id)
     else:
         return redirect(url_for('index'))
 
