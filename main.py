@@ -8,12 +8,6 @@ import mimetypes
 import queires
 import user_manager
 
-import os
-import psycopg2
-
-connection_string = os.environ.get('postgres://xzjtkovptrnxpm:0d08358430322a827292c36bff3d08b10892c4925ffa78c72d090213af0235f4@ec2-54-216-90-155.eu-west-1.compute.amazonaws.com:5432/d1r9psculeuq5')
-connection = psycopg2.connect(connection_string)
-
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
@@ -63,7 +57,7 @@ def rename_board(new_title: str, board_id: int):
 @json_response
 def rename_card(new_title: str, card_id: int):
     if request.method == "PUT":
-        queires.rename_card(new_title, card_id)
+        queires.rename_cards(new_title, card_id)
     else:
         return redirect(url_for('index'))
 
@@ -138,7 +132,7 @@ def delete_card_from_board(card_id):
 
 @app.route("/api/cards/<int:card_id>/rename/<string:new_title>", methods=["GET", "PUT"])
 @json_response
-def rename_card(new_title: str, card_id: int):
+def rename_cards(new_title: str, card_id: int):
     if request.method == "PUT":
         socketio.emit('edit', "true", broadcast=True)
         queires.rename_card(new_title, card_id)
