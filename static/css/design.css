@@ -28,7 +28,7 @@ body{
     min-width: 100%;
     background: var(--body-bg);
     background-image: url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagmonds.png);
-    font-family: sans-serif;
+    font-family: 'Open sans', 'sans-serif';
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -174,7 +174,7 @@ input.board-title:hover,
 .board-columns{
     display: flex;
     flex-wrap: wrap;
-    padding: 0 1em;
+    padding: 0 1.4em;
     gap: 1em;
     max-height: 0;
 }
