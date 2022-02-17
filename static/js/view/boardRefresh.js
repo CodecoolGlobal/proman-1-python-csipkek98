@@ -1,4 +1,4 @@
-import { loadTableData} from "../controller/boardsManager.js";
+import { loadTableData } from "../controller/boardsManager.js";
 
 export function reloadBoardData(boardId){
     const boardColumns = document.querySelector(`.board[data-board-id="${boardId}"] .board-columns`)

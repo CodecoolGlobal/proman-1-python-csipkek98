@@ -36,6 +36,11 @@ export let cardsManager = {
           `.card[data-card-id="${card.id}"] input`,
           "focusout",
           resetForm
+      );
+      domManager.addEventListener(
+          `.card[data-card-id="${card.id}"] input`,
+          "keydown",
+          renameCard
       )
     }
   },
@@ -71,11 +76,16 @@ function cardButtonsHandler(clickEvent) {
   }
 }
 
-async function renameCard(clickEvent) {
-  const cardId = clickEvent.target.dataset.cardId;
-  const newTitle = document.querySelector(`input[data-card-id="${cardId}"]`);
-  await dataHandler.renameCard(newTitle.value, cardId);
-  newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+async function renameCard(e) {
+  if (e.keyCode === 13) {
+    const boardId = e.target.closest(".card").dataset.boardId;
+    console.log(boardId)
+    const cardId = e.target.dataset.cardId;
+    const newTitle = document.querySelector(`input[data-card-id="${cardId}"]`);
+    await dataHandler.renameCard(newTitle.value, cardId);
+    newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+    reloadBoardData(boardId);
+  }
 }
 
 function toggleInput(clickEvent) {
