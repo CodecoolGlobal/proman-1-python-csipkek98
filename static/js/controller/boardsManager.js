@@ -117,6 +117,7 @@ async function showHideButtonHandler(clickEvent) {
       }
       openBoard.removeChild(openBoard.lastChild);
     }
+    removeClosedBoards(boardId);
   }
   else
   {
@@ -124,7 +125,9 @@ async function showHideButtonHandler(clickEvent) {
         addBtn.style.display = 'block'
     }
     await loadTableData(boardId)
+    storeOpenBoards(boardId);
   }
+  console.log(JSON.parse(sessionStorage.getItem("boards")))
   boardHeader.classList.toggle("open");
   openBoard.classList.toggle("open");
 }
@@ -215,4 +218,40 @@ function showHideAddColumn(clickEvent) {
 
 function switchHiddenVisible(element) {
   element.hidden === true ? element.hidden = false : element.hidden = true;
+}
+
+function storeOpenBoards(boardId){
+  let storedIds = JSON.parse(sessionStorage.getItem("boards"));
+  if(storedIds){
+    storedIds.push(boardId);
+    sessionStorage.setItem("boards", JSON.stringify(storedIds));
+  }
+  else {
+    storedIds = [boardId];
+    sessionStorage.setItem("boards", JSON.stringify(storedIds));
+  }
+}
+
+function removeClosedBoards(boardId){
+  let storedIds = JSON.parse(sessionStorage.getItem("boards"));
+  if(storedIds){
+    const index = storedIds.indexOf(boardId);
+    if (index > -1) {
+      storedIds.splice(index, 1);
+    }
+    sessionStorage.setItem("boards", JSON.stringify(storedIds));
+  }
+}
+
+export async function reloadPage(){
+  await boardsManager.loadBoards();
+  let boardIds = await JSON.parse(sessionStorage.getItem("boards"));
+  let boards = await document.querySelectorAll(".board");
+  for(let board of boards){
+    if(boardIds.includes(board.dataset.boardId)){
+      removeClosedBoards(board.dataset.boardId);
+      let showBtn = document.querySelector(`.board-toggle[data-board-id="${board.dataset.boardId}"]`);
+      showBtn.click();
+    }
+  }
 }
