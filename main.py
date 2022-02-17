@@ -50,6 +50,15 @@ def rename_board(new_title: str, board_id: int):
         return redirect(url_for('index'))
 
 
+@app.route("/api/card/<int:card_id>/rename/<string:new_title>/", methods=['GET', 'PUT'])
+@json_response
+def rename_card(new_title: str, card_id: int):
+    if request.method == "PUT":
+        queires.rename_card(new_title, card_id)
+    else:
+        return redirect(url_for('index'))
+
+
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
@@ -114,15 +123,6 @@ def create_status():
 def delete_card_from_board(card_id):
     if request.method == "DELETE":
         queires.delete_card_from_board(card_id)
-
-
-@app.route("/api/cards/<int:card_id>/rename/<string:new_title>", methods=["GET", "PUT"])
-@json_response
-def rename_card(new_title: str, card_id: int):
-    if request.method == "PUT":
-        queires.rename_card(new_title, card_id)
-    else:
-        return redirect(url_for('index'))
 
 
 @app.route("/api/column/<int:column_id>/rename/<string:new_title>/", methods=["GET", "PUT"])

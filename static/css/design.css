@@ -1,6 +1,6 @@
 :root{
     --border-radius: 5px;
-    --status-1: #f55959;
+    --status-1: #ea5c5c;
     --status-2: #ffa530;
     --status-3: #95a950;
     --status-4: #89f57b;
@@ -28,7 +28,7 @@ body{
     min-width: 100%;
     background: var(--body-bg);
     background-image: url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagmonds.png);
-    font-family: sans-serif;
+    font-family: 'Open sans', 'sans-serif';
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -125,9 +125,8 @@ input.board-title,
     border: var(--border) 1px inset;
 }
 
-.board-header input:hover,
+input.board-title:hover,
 .board-column-header input:hover,
-.card-title input:hover,
 .fa-trash-alt:hover,
 .fa-archive:hover{
     color: floralwhite;
@@ -174,8 +173,9 @@ input.board-title,
 
 .board-columns{
     display: flex;
-    flex-basis: auto;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0 1.4em;
+    gap: 1em;
     max-height: 0;
 }
 
@@ -248,6 +248,10 @@ input.board-title,
     color: var(--status-4);
 }
 
+.board-column .card input:hover {
+    color:floralwhite;
+    transition: color 0.2s ease-in;
+}
 .card-remove{
     display: block;
     position: absolute;

@@ -40,11 +40,6 @@ loadColumns : async function (boardId) {
         "drop",
           dragAndDrop.handleDrop
           );
-      // domManager.addEventListener(
-      //   `.board-column[data-column-id="${status.id}"]`,
-      //   "click",
-      //     renameColumn
-      //     );
       domManager.addEventListener(
         `.board-column[data-column-id="${status.id}"] input`,
         "keydown",
@@ -75,15 +70,30 @@ async function deleteColumn(clickEvent){
     }
 }
 
-async function renameColumn(clickEvent){
-    const targetInput = clickEvent.target;
-    targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+// async function renameColumn(e){
+    // const targetInput = e.target;
+    // const statusIdd = e.target.dataset.statusIdd;
+    // const newTitle = document.querySelector(`input[data-status-idd="${statusIdd}"]`);
+    // let boardId = targetInput.closest("[data-board-id]").getAttribute("data-board-id")
+    // if (e.keyCode === 13){
+        // await dataHandler.renameColumn(newTitle.value, statusIdd);
+        // newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+        // reloadBoardData(boardId)
+    // }
+    // targetInput.readOnly === true ? targetInput.readOnly = false : targetInput.readOnly = true;
+    // targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
+// }
+
+async function renameColumn(e) {
+    const targetInput = e.target;
     targetInput.onfocus = this.selectionStart = this.selectionEnd = this.value.length;
-    const statusIdd = clickEvent.target.dataset.statusIdd;
-    const newTitle = document.querySelector(`input[data-status-idd="${statusIdd}"]`);
-    if (clickEvent.key === 'Enter'){
+    if (e.keyCode === 13) {
+        const boardId = targetInput.closest(".board").dataset.boardId;
+        const statusIdd = targetInput.dataset.statusIdd;
+        const newTitle = document.querySelector(`input[data-status-idd="${statusIdd}"]`);
         await dataHandler.renameColumn(newTitle.value, statusIdd);
         newTitle.readOnly === true ? newTitle.readOnly = false : newTitle.readOnly = true;
+        reloadBoardData(boardId);
     }
 }
 
